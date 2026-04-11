@@ -25,7 +25,7 @@ const FavoriteCities = () => {
 
                 <div className="flex flex-col gap-4">
                     <SearchInput favoriteCities={favoriteCities} onAddToFavorite={handleAddToFavorite} />
-                    <Cities />
+                    <Cities cities={favoriteCities} />
                 </div>
             </div>
         </Container>

@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 
 const SearchInput = ({ favoriteCities, onAddToFavorite }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
     const inputRef = useRef(null);
     const timeoutRef = useRef(null);
 
@@ -30,25 +32,19 @@ const SearchInput = ({ favoriteCities, onAddToFavorite }) => {
         }, 1000);
     }
 
-    // Reset Search
-    function resetSearch() {
-        if (inputRef.current?.value) {
-            inputRef.current.value = "";
-            setSearchedCities([]);
-        }
-    }
-
     return (
         <div className="flex items-center gap-3">
             <div className="relative w-fit">
                 <input
                     ref={inputRef}
                     onChange={handleSearch}
+                    onFocus={() => setIsOpen(true)}
+                    onBlur={() => setIsOpen(false)}
                     placeholder="Search for cities..."
                     className="rounded-full px-4 py-2 outline-none focus:ring-4 focus:ring-blue-200 duration-200 border border-blue-500 min-w-100"
                 />
 
-                {inputRef.current?.value && (
+                {isOpen && inputRef.current?.value && (
                     <div className="absolute top-full mt-1 bg-white rounded-xl border-gray-200 shadow-md shadow-gray-200 w-full h-fit">
                         {filteredCities.length > 0 ? (
                             filteredCities.map((city, index) => (
@@ -74,8 +70,6 @@ const SearchInput = ({ favoriteCities, onAddToFavorite }) => {
                     </div>
                 )}
             </div>
-
-            <button onClick={resetSearch} className="text-blue-500 hover:text-blue-600 font-semibold cursor-pointer">Reset</button>
         </div>
     )
 }
