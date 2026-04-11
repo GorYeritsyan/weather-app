@@ -6,12 +6,6 @@ import Cities from "../components/shared/Cities.jsx";
 const FavoriteCities = () => {
     const [favoriteCities, setFavoriteCities] = useState([]);
 
-    useEffect(() => {
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=f&limit=10&appid=${import.meta.env.VITE_API_KEY}`)
-            .then(res => res.json())
-            .then(data => console.log(data))
-    }, []);
-
     function handleAddToFavorite(newCity) {
         setFavoriteCities([...favoriteCities, newCity]);
     }
