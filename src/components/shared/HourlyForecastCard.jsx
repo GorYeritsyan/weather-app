@@ -1,11 +1,12 @@
 const HourlyForecastCard = ({ forecastDetails }) => {
     return (
-        <div className="p-2 rounded-lg bg-blue-100 font-semibold">
-            <span>{forecastDetails?.dt_txt?.split(" ")?.[1]}</span>
-            <img src={`https://openweathermap.org/payload/api/media/file/${forecastDetails?.weather?.[0]?.icon}.png`} />
-            {forecastDetails?.weather?.[0]?.description}
-            <span>{forecastDetails?.main?.temp}</span> <br />
-            <span>{forecastDetails?.main?.feels_like}</span>
+        <div className="p-2 rounded-lg bg-blue-100 font-semibold w-fit min-w-[150px]">
+            <span>{new Date(forecastDetails?.dt_txt).toLocaleTimeString()}</span>
+            <div className="flex gap-2 items-center justify-between">
+                <span className="text-2xl">{Math.round(forecastDetails?.main?.temp)}º</span>
+                <img className="size-[56px]" src={`https://openweathermap.org/payload/api/media/file/${forecastDetails?.weather?.[0]?.icon}.png`} />
+            </div>
+            <span className="text-lg">{forecastDetails?.weather?.[0]?.main}</span>
         </div>
     );
 }

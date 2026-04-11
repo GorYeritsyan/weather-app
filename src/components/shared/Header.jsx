@@ -1,5 +1,5 @@
 import Container from "./Container.jsx";
-import {NavLink} from "react-router";
+import { NavLink } from "react-router";
 
 const Header = () => {
     return (
@@ -9,9 +9,6 @@ const Header = () => {
                     <ul className="flex items-center gap-6 font-semibold">
                         <li>
                             <NavLink to="/">Home</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/forecast">5 day / 3 hour forecast</NavLink>
                         </li>
                         <li>
                             <NavLink to="/cities">Favorite Cities</NavLink>
