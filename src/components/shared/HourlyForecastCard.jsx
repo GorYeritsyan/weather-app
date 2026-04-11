@@ -1,10 +1,12 @@
+import WeatherIcon from "./WeatherIcon.jsx";
+
 const HourlyForecastCard = ({ forecastDetails }) => {
     return (
-        <div className="p-2 rounded-lg bg-blue-100 font-semibold w-fit min-w-[150px]">
+        <div className="p-2 rounded-lg bg-blue-100 font-semibold w-fit min-w-37.5">
             <span>{new Date(forecastDetails?.dt_txt).toLocaleTimeString()}</span>
             <div className="flex gap-2 items-center justify-between">
                 <span className="text-2xl">{Math.round(forecastDetails?.main?.temp)}º</span>
-                <img className="size-[56px]" src={`https://openweathermap.org/payload/api/media/file/${forecastDetails?.weather?.[0]?.icon}.png`} />
+                <WeatherIcon icon={forecastDetails?.weather?.[0]?.icon} className="size-14" />
             </div>
             <span className="text-lg">{forecastDetails?.weather?.[0]?.main}</span>
         </div>

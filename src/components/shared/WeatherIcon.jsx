@@ -1,10 +1,9 @@
-import { cn } from "../../utils/index.js";
-
 const WeatherIcon = ({ icon, className }) => {
     return (
         <img
             className={className}
-            src={`https://openweathermap.org/payload/api/media/file/${icon}.png`}
+            src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${icon}.png`}
+            alt="weather icon"
         />
     )
 }

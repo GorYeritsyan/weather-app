@@ -1,4 +1,4 @@
-import React from 'react'
+import WeatherIcon from "./WeatherIcon.jsx";
 
 const ForecastCard = ({ currentWeather }) => {
     return (
@@ -8,14 +8,14 @@ const ForecastCard = ({ currentWeather }) => {
                     <h3 className="font-semibold text-xl">{`${currentWeather?.name}, ${currentWeather?.sys?.country}`}</h3>
                     <span className="font-semibold text-sm">{new Date().toLocaleTimeString()}</span>
                 </div>
-                <img className="size-[70px]" src={`https://openweathermap.org/payload/api/media/file/${currentWeather?.weather?.[0]?.icon}.png`} />
+                <WeatherIcon icon={currentWeather?.weather?.[0]?.icon} className="size-17.5" />
             </div>
 
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-1 items-center">
-                            <span className="font-semibold text-5xl">
-                                {Math.round(currentWeather?.main?.temp)}°
-                            </span>
+                    <span className="font-semibold text-5xl">
+                        {Math.round(currentWeather?.main?.temp)}°
+                    </span>
                 </div>
 
                 <div className="flex flex-col capitalize font-semibold items-center gap-1">
