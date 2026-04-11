@@ -87,7 +87,7 @@ const Home = () => {
                     <ToggleUnits />
                 </div>
 
-                {isLocationLoading ? (
+                {isLocationLoading || !currentWeather || !groupedForecast ? (
                     <div className="flex items-center justify-center">
                         <LuLoaderCircle className="size-14 animate-spin" />
                     </div>
