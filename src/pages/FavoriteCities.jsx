@@ -1,11 +1,22 @@
-import {useLocation, useParams} from "react-router";
+import { useEffect, useState } from "react";
 import Container from "../components/shared/Container.jsx";
 import SearchInput from "../components/shared/SearchInput.jsx";
 import Cities from "../components/shared/Cities.jsx";
 
 const FavoriteCities = () => {
-    const location = useLocation();
-    console.log(location.pathname);
+    const [favoriteCities, setFavoriteCities] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=f&limit=10&appid=${import.meta.env.VITE_API_KEY}`)
+            .then(res => res.json())
+            .then(data => console.log(data))
+    }, []);
+
+    function handleAddToFavorite(newCity) {
+        setFavoriteCities([...favoriteCities, newCity]);
+    }
+
+    console.log(favoriteCities);
 
     return (
         <Container>
@@ -13,7 +24,7 @@ const FavoriteCities = () => {
                 <h3 className="text-3xl font-semibold">Favorite Cities</h3>
 
                 <div className="flex flex-col gap-4">
-                    <SearchInput />
+                    <SearchInput favoriteCities={favoriteCities} onAddToFavorite={handleAddToFavorite} />
                     <Cities />
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import Container from "./Container.jsx";
 import { NavLink } from "react-router";
+import {cn} from "../../utils/index.js";
 
 const headerRoutes = [
     {
@@ -23,7 +24,7 @@ const Header = () => {
                             <li key={route.path}>
                                 <NavLink
                                     to={route.path}
-                                    className={({ isActive }) => isActive && "text-blue-500"}
+                                    className={({ isActive }) => cn(isActive && "text-blue-500")}
                                 >
                                     {route.title}
                                 </NavLink>
