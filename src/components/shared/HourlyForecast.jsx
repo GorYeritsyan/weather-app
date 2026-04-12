@@ -9,8 +9,11 @@ const HourlyForecast = ({ selectedDay, hourlyForecast }) => {
                 {Object.entries(hourlyForecast)
                     .find(([day]) => day === selectedDay)?.[1]
                     .map((forecastItem) => (
-                    <HourlyForecastCard key={forecastItem?.dt} forecastDetails={forecastItem} />
-                ))}
+                        <HourlyForecastCard
+                            key={forecastItem?.dt}
+                            forecastDetails={forecastItem}
+                        />
+                    ))}
             </div>
         </div>
     )

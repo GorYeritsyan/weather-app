@@ -7,12 +7,6 @@ import {useWeather} from "../providers/WeatherProvider.jsx";
 import ToggleUnits from "../components/shared/ToggleUnits.jsx";
 import { LuLoaderCircle } from "react-icons/lu"
 
-const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-};
-
 const Home = () => {
     const [coordinates, setCoordinates] = useState(null);
     const [currentWeather, setCurrentWeather] = useState(null);
@@ -69,7 +63,7 @@ const Home = () => {
 
     useEffect(() => {
         setIsLocationLoading(true);
-        navigator.geolocation.getCurrentPosition(handleLocationSuccess, handleLocationError, options);
+        navigator.geolocation.getCurrentPosition(handleLocationSuccess, handleLocationError);
     }, []);
 
     // Group Forecast data by day
