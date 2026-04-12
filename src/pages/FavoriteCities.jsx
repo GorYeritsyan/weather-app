@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Container from "../components/shared/Container.jsx";
 import SearchInput from "../components/shared/SearchInput.jsx";
 import Cities from "../components/shared/Cities.jsx";

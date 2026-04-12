@@ -4,6 +4,7 @@ const WeatherContext = createContext(null);
 
 const WeatherProvider = ({ children }) => {
     const [units, setUnits] = useState("metric");
+    const [selectedCity, setSelectedCity] = useState("");
 
     function changeToFahrenheit() {
         setUnits("imperial");
@@ -14,7 +15,14 @@ const WeatherProvider = ({ children }) => {
     }
 
     return (
-        <WeatherContext.Provider value={{ changeToCelsius, changeToFahrenheit, units }}>
+        <WeatherContext.Provider value={{
+            changeToCelsius,
+            changeToFahrenheit,
+            units,
+            selectedCity,
+            setSelectedCity
+        }}
+        >
             {children}
         </WeatherContext.Provider>
 

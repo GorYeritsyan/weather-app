@@ -18,6 +18,8 @@ const Home = () => {
     const [currentWeather, setCurrentWeather] = useState(null);
     const [selectedDay, setSelectedDay] = useState(null);
 
+    const { selectedCity } = useWeather();
+
     const [isLocationLoading, setIsLocationLoading] = useState(false);
 
     const { units } = useWeather();
@@ -25,6 +27,12 @@ const Home = () => {
     const [forecast, setForecast] = useState([]);
 
     function handleLocationSuccess(pos) {
+        if (selectedCity) {
+            setCoordinates({ lat: selectedCity?.lat, lon: selectedCity?.lon });
+            setIsLocationLoading(false);
+            return;
+        }
+
         const crd = pos.coords;
         setCoordinates({ lat: crd?.latitude, lon: crd?.longitude });
         setIsLocationLoading(false);
@@ -32,6 +40,7 @@ const Home = () => {
 
     function handleLocationError(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
+        setIsLocationLoading(false);
     }
 
     useEffect(() => {
