@@ -15,7 +15,7 @@ const SearchInput = () => {
 
     // Don't show same city in the search result if already city added to favorites
     const filteredCities = searchedCities?.length > 0 ? (
-        searchedCities?.filter(city => !favoriteCities?.map(elem => elem.lon).includes(city.lon))
+        searchedCities?.filter(city => !favoriteCities?.map(elem => elem?.lon).includes(city?.lon))
     ) : [];
 
     // Fetch cities
@@ -23,7 +23,8 @@ const SearchInput = () => {
         setIsSearching(true);
         setIsOpen(true);
 
-        weatherApi.fetchGeolocations(cityName)
+        // Fetch geolocation
+        weatherApi.fetchGeolocations({ query: cityName })
             .then(cities => {
                 setSearchedCities(cities);
                 setIsSearching(false);

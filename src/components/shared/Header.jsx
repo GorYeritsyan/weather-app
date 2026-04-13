@@ -8,7 +8,7 @@ const headerRoutes = [
         title: "Home"
     },
     {
-        path: "/cities",
+        path: "/favorites",
         title: "Favorite Cities"
     }
 ];

@@ -7,7 +7,8 @@ const WeatherProvider = ({ children }) => {
     const [units, setUnits] = useState("metric");
 
     const [currentCity, setCurrentCity] = useState(null);
-    const [coordinates, setCoordinates] = useState(null);
+    const [selectedCity, setSelectedCity] = useState(null);
+
     const [currentWeather, setCurrentWeather] = useState(null);
 
     const [favoriteCities, setFavoriteCities] = useState([]);
@@ -16,7 +17,7 @@ const WeatherProvider = ({ children }) => {
 
     function handleAddToFavorite(newCity) {
         newCity.id = crypto.randomUUID();
-        setFavoriteCities([...favoriteCities, { ...newCity, isSelected: false }]);
+        setFavoriteCities([...favoriteCities, newCity]);
     }
 
     function handleRemoveFromFavorite(cityId) {
@@ -24,8 +25,7 @@ const WeatherProvider = ({ children }) => {
     }
 
     function handleSelectFavoriteCity(selectedCity) {
-        setFavoriteCities(prev => prev.map(city => city.id === selectedCity.id ? { ...city, isSelected: true } : { ...city, isSelected: false }))
-        setCoordinates({ lat: selectedCity?.lat, lon: selectedCity?.lon });
+        setSelectedCity(selectedCity);
     }
 
     function changeToFahrenheit() {
@@ -38,36 +38,38 @@ const WeatherProvider = ({ children }) => {
 
     function handleLocationCallback(pos) {
         const crd = pos.coords;
-        setCoordinates({ lat: crd?.latitude, lon: crd?.longitude });
 
         setIsLoading(true);
-        weatherApi.fetchWeather(`weather?lat=${crd?.latitude}&lon=${crd?.longitude}&units=${units}`).then(res => {
-            const id = crypto.randomUUID();
-            setCurrentCity({ id, name: res?.name, country: res?.sys?.country, lat: res?.coord?.lat, lon: res?.coord?.lon });
-            setIsLoading(false);
-        })
+        weatherApi.fetchGeolocations({ lat: crd?.latitude, lon: crd?.longitude, endpoint: "reverse" })
+            .then(res => {
+                setCurrentCity(res?.[0]);
+                setIsLoading(false);
+            });
     }
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition(handleLocationCallback);
     }, []);
 
+    // Add current city to favorite cities list
     useEffect(() => {
         if (currentCity) {
-            setFavoriteCities(prev => [...prev, { ...currentCity, isSelected: true }]);
+            setFavoriteCities(prev => [...prev, { ...currentCity }]);
         }
     }, [currentCity]);
 
     useEffect(() => {
-        if (coordinates) {
+        const query = selectedCity ? `${selectedCity?.name},${selectedCity?.country}` : `${currentCity?.name},${currentCity?.country}`;
+
+        if (query) {
             setIsLoading(true);
-            weatherApi.fetchWeather(`weather?lat=${coordinates?.lat}&lon=${coordinates?.lon}&units=${units}`)
+            weatherApi.fetchWeather(`weather?q=${query}&units=${units}`)
                 .then(res => {
                     setCurrentWeather(res);
                     setIsLoading(false);
                 });
         }
-    }, [coordinates, units]);
+    }, [currentCity, selectedCity, units]);
 
     return (
         <WeatherContext.Provider value={{
@@ -79,7 +81,7 @@ const WeatherProvider = ({ children }) => {
             isLoading,
             setIsLoading,
             currentWeather,
-            coordinates,
+            selectedCity,
             favoriteCities,
             units,
             handleSelectFavoriteCity

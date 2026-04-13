@@ -7,10 +7,10 @@ import DeleteModalButton from "./DeleteModalButton.jsx";
 
 const Cities = ({ cities }) => {
     const navigate = useNavigate();
-    const { handleSelectFavoriteCity, handleRemoveFromFavorite, currentCity } = useWeather();
+    const { handleSelectFavoriteCity, handleRemoveFromFavorite, currentCity, selectedCity } = useWeather();
 
     function selectFavoriteCity(city) {
-        if (city?.isSelected) return;
+        if (selectedCity?.id === city?.id) return;
 
         handleSelectFavoriteCity(city);
         navigate("/");
@@ -19,7 +19,7 @@ const Cities = ({ cities }) => {
     function removeFavoriteCity(city) {
         handleRemoveFromFavorite(city.id);
 
-        if (city.isSelected) {
+        if (selectedCity?.id === city?.id) {
             handleSelectFavoriteCity(currentCity);
         }
     }
@@ -30,7 +30,7 @@ const Cities = ({ cities }) => {
                <div key={city.id} className="flex items-center gap-2">
                    <div
                        onClick={() => selectFavoriteCity(city)}
-                       className={cn("rounded-full text-lg px-5 py-2 font-semibold bg-blue-100 cursor-pointer flex items-center justify-center gap-3", city?.isSelected && "bg-blue-500 text-white")}
+                       className={cn("rounded-full text-lg px-5 py-2 font-semibold bg-blue-100 cursor-pointer flex items-center justify-center gap-3", selectedCity?.id === city?.id && "bg-blue-500 text-white")}
                    >
                        {currentCity?.id === city?.id && (
                            <FaLocationDot />

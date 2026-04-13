@@ -10,7 +10,7 @@ import ToggleUnits from "../components/shared/ToggleUnits.jsx";
 import Spinner from "../components/ui/Spinner.jsx";
 
 const Home = () => {
-    const { coordinates, currentWeather, isLoading, setIsLoading, units } = useWeather();
+    const { selectedCity, currentCity, currentWeather, isLoading, setIsLoading, units } = useWeather();
 
     const [selectedDay, setSelectedDay] = useState(null);
     const [forecast, setForecast] = useState([]);
@@ -27,19 +27,22 @@ const Home = () => {
 
     // Fetch 5 day / 3-hour forecast data
     useEffect(() => {
-        if (coordinates) {
+        const query = selectedCity ? `${selectedCity?.name},${selectedCity?.country}` : `${currentCity?.name},${currentCity?.country}`;
+        console.log(query);
+
+        if (selectedCity || currentCity) {
             setIsLoading(true);
-            weatherApi.fetchWeather(`forecast?lat=${coordinates?.lat}&lon=${coordinates?.lon}&units=${units}`)
+            weatherApi.fetchWeather(`forecast?q=${query}&units=${units}`)
                 .then(data => {
                     setForecast(data.list);
                     setIsLoading(false);
                 });
         }
-    }, [units, coordinates]);
+    }, [units, selectedCity, currentCity]);
 
     // Initialize selected day state
     useEffect(() => {
-        const currentDay = Object.keys(groupedForecast)?.[0];
+        const currentDay = groupedForecast && Object.keys(groupedForecast)?.[0];
 
         if (!selectedDay) {
             setSelectedDay(currentDay);
@@ -61,9 +64,9 @@ const Home = () => {
                     <ToggleUnits />
                 </div>
 
-                {isLoading || !currentWeather || !groupedForecast ? (
+                {isLoading ? (
                     <Spinner />
-                ) : (
+                ) : currentWeather && groupedForecast ? (
                     <div className="flex flex-col items-start gap-4">
                         {/* 5-Day Forecast */}
                         <DailyForecast dailyForecast={groupedForecast} selectedDay={selectedDay} onDayChange={handleDayChange} />
@@ -82,6 +85,8 @@ const Home = () => {
                             <HourlyForecast selectedDay={selectedDay} hourlyForecast={groupedForecast} />
                         </div>
                     </div>
+                ) : (
+                    <h2 className="text-xl font-semibold">We couldn't find weather data for this location. Try searching with a different city name or add a country code (e.g. "Paris, FR").</h2>
                 )}
             </div>
         </Container>

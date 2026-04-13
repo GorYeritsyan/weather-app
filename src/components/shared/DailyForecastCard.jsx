@@ -7,7 +7,6 @@ const DailyForecastCard = ({ dailyForecastDetails, selectedDay, onDayChange }) =
     const dailyTemps = hours.map(hour => Math.round(hour?.main?.temp));
     const minTemp = Math.min(...dailyTemps);
     const maxTemp = Math.max(...dailyTemps);
-    console.log("hours", minTemp, maxTemp);
 
     function getWeekDay(newDate) {
         const date = new Date(newDate).toDateString().split(" ");
