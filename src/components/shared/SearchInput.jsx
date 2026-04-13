@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
-import {useWeather} from "../../providers/WeatherProvider.jsx";
+import { useWeather } from "../../providers/WeatherProvider.jsx";
 import SearchMenu from "./SearchMenu.jsx";
+import {weatherApi} from "../../api/api.js";
 
 const SearchInput = () => {
     const { favoriteCities } = useWeather();
@@ -21,15 +22,13 @@ const SearchInput = () => {
     function searchCities(cityName) {
         setIsSearching(true);
         setIsOpen(true);
-        fetch(`${import.meta.env.VITE_GEOCODING_BASE_URL}/direct?q=${cityName}&limit=10&appid=${import.meta.env.VITE_API_KEY}`)
-            .then(res => res.json())
+
+        weatherApi.fetchGeolocations(cityName)
             .then(cities => {
                 setSearchedCities(cities);
                 setIsSearching(false);
             });
     }
-
-    console.log("searchCities", searchedCities);
 
     function handleToggleSearchMenu() {
         setIsOpen(!isOpen);
@@ -42,7 +41,6 @@ const SearchInput = () => {
         }
 
         timeoutRef.current = setTimeout(() => {
-            console.log(inputRef.current.value);
             searchCities(inputRef.current.value);
         }, 1000);
     }

@@ -1,8 +1,11 @@
+import { useWeather } from "../../providers/WeatherProvider.jsx";
 import WeatherIcon from "./WeatherIcon.jsx";
 
-const ForecastCard = ({ currentWeather }) => {
+const ForecastCard = () => {
+    const { currentWeather } = useWeather();
+
     return (
-        <div className="flex flex-col gap-15 p-5 rounded-xl bg-blue-400/40 shadow-sm shadow-gray-200 min-w-[380px]">
+        <div className="flex flex-col gap-15 p-5 rounded-xl bg-blue-400/40 shadow-sm shadow-gray-200 min-w-95">
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-1">
                     <h3 className="font-semibold text-xl">{`${currentWeather?.name}, ${currentWeather?.sys?.country}`}</h3>

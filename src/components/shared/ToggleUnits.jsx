@@ -1,6 +1,5 @@
-import React from 'react'
-import {useWeather} from "../../providers/WeatherProvider.jsx";
-import {cn} from "../../utils/index.js";
+import { useWeather } from "../../providers/WeatherProvider.jsx";
+import { cn } from "../../utils/index.js";
 
 const ToggleUnits = () => {
     const { units, changeToFahrenheit, changeToCelsius } = useWeather();

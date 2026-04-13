@@ -1,18 +1,17 @@
-import Container from "./Container.jsx";
 import { NavLink } from "react-router";
-import {cn} from "../../utils/index.js";
+import Container from "./Container.jsx";
+import { cn } from "../../utils/index.js";
 
 const headerRoutes = [
     {
         path: "/",
         title: "Home"
     },
-
     {
         path: "/cities",
         title: "Favorite Cities"
     }
-]
+];
 
 const Header = () => {
     return (

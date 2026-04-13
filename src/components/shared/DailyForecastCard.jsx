@@ -11,6 +11,7 @@ const DailyForecastCard = ({ dailyForecastDetails, selectedDay, onDayChange }) =
     const weekDay = getWeekDay(day);
     const currentDay = getWeekDay(Date.now());
 
+    console.log(hours)
     const weatherIcon = hours?.[0]?.weather?.[0]?.icon;
     const averageTemp = Math.round(hours?.reduce((acc, forecast) => acc + forecast?.main?.temp, 0) / hours?.length);
 

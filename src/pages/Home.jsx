@@ -1,76 +1,19 @@
 import { useEffect, useState } from "react";
+import { useWeather } from "../providers/WeatherProvider.jsx";
+import { weatherApi } from "../api/api.js";
+
 import Container from "../components/shared/Container.jsx";
 import HourlyForecast from "../components/shared/HourlyForecast.jsx";
 import DailyForecast from "../components/shared/DailyForecast.jsx";
 import ForecastCard from "../components/shared/ForecastCard.jsx";
-import {useWeather} from "../providers/WeatherProvider.jsx";
 import ToggleUnits from "../components/shared/ToggleUnits.jsx";
-import { LuLoaderCircle } from "react-icons/lu"
 import Spinner from "../components/ui/Spinner.jsx";
 
 const Home = () => {
-    const [coordinates, setCoordinates] = useState(null);
-    const [currentWeather, setCurrentWeather] = useState(null);
+    const { coordinates, currentWeather, isLoading, setIsLoading, units } = useWeather();
+
     const [selectedDay, setSelectedDay] = useState(null);
-
-    const { selectedCity } = useWeather();
-
-    const [isLocationLoading, setIsLocationLoading] = useState(false);
-
-    const { units } = useWeather();
-
     const [forecast, setForecast] = useState([]);
-
-    function handleLocationSuccess(pos) {
-        if (selectedCity) {
-            setCoordinates({ lat: selectedCity?.lat, lon: selectedCity?.lon });
-            return;
-        }
-
-        const crd = pos.coords;
-        setCoordinates({ lat: crd?.latitude, lon: crd?.longitude });
-    }
-
-    function handleLocationError(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
-        setIsLocationLoading(false);
-    }
-
-    useEffect(() => {
-        if (coordinates) {
-            setIsLocationLoading(true);
-            fetch(`${import.meta.env.VITE_BASE_URL}/forecast?lat=${coordinates?.lat}&lon=${coordinates?.lon}&units=${units}&appid=${import.meta.env.VITE_API_KEY}`)
-                .then(res => res.json())
-                .then(data => {
-                    setForecast(data.list);
-                    setIsLocationLoading(false);
-                })
-        }
-    }, [units, coordinates]);
-
-    useEffect(() => {
-        if (coordinates) {
-            setIsLocationLoading(true);
-            fetch(`${import.meta.env.VITE_BASE_URL}/weather?lat=${coordinates?.lat}&lon=${coordinates?.lon}&units=${units}&appid=${import.meta.env.VITE_API_KEY}`)
-                .then(res => res.json())
-                .then(res => {
-                    setCurrentWeather(res);
-                    setIsLocationLoading(false);
-                });
-        }
-    }, [coordinates, units]);
-
-    useEffect(() => {
-        const currentDay = Object.keys(groupedForecast)?.[0];
-
-        if (!selectedDay) {
-            setSelectedDay(currentDay);
-        }
-    }, [forecast]);
-
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition(handleLocationSuccess, handleLocationError);
-    }, []);
 
     // Group Forecast data by day
     const groupedForecast = forecast?.reduce((acc, item) => {
@@ -82,6 +25,28 @@ const Home = () => {
         return acc;
     }, {});
 
+    // Fetch 5 day / 3-hour forecast data
+    useEffect(() => {
+        if (coordinates) {
+            setIsLoading(true);
+            weatherApi.fetchWeather(`forecast?lat=${coordinates?.lat}&lon=${coordinates?.lon}&units=${units}`)
+                .then(data => {
+                    setForecast(data.list);
+                    setIsLoading(false);
+                });
+        }
+    }, [units, coordinates]);
+
+    // Initialize selected day state
+    useEffect(() => {
+        const currentDay = Object.keys(groupedForecast)?.[0];
+
+        if (!selectedDay) {
+            setSelectedDay(currentDay);
+        }
+    }, [forecast]);
+
+    // Function to select day
     function handleDayChange(day) {
         setSelectedDay(day);
     }
@@ -96,11 +61,11 @@ const Home = () => {
                     <ToggleUnits />
                 </div>
 
-                {isLocationLoading || !currentWeather || !groupedForecast ? (
+                {isLoading || !currentWeather || !groupedForecast ? (
                     <Spinner />
                 ) : (
                     <div className="flex flex-col items-start gap-4">
-                        {/* 5 Day Forecast */}
+                        {/* 5-Day Forecast */}
                         <DailyForecast dailyForecast={groupedForecast} selectedDay={selectedDay} onDayChange={handleDayChange} />
 
                         <div className="flex items-start gap-10">
@@ -109,11 +74,11 @@ const Home = () => {
                                     <h3 className="font-semibold text-2xl">Current Weather</h3>
 
                                     {/* Current Weather details */}
-                                    <ForecastCard currentWeather={currentWeather} />
+                                    <ForecastCard />
                                 </div>
                             </div>
 
-                            {/* 3 Hour forecast */}
+                            {/* 3-Hour forecast */}
                             <HourlyForecast selectedDay={selectedDay} hourlyForecast={groupedForecast} />
                         </div>
                     </div>

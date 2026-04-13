@@ -1,5 +1,5 @@
-import {useModal} from "./Modal.jsx";
-import {cn} from "../../../utils/index.js";
+import { useModal } from "./Modal.jsx";
+import { cn } from "../../../utils/index.js";
 
 const ModalClose = ({ children, className }) => {
     const { closeModal } = useModal();

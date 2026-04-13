@@ -1,5 +1,5 @@
-import {cn} from "../../../utils/index.js";
-import {useModal} from "./Modal.jsx";
+import { cn } from "../../../utils/index.js";
+import { useModal } from "./Modal.jsx";
 
 const ModalSubmit = ({ children, onSubmit, className }) => {
     const { closeModal } = useModal();

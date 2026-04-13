@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Container from "../components/shared/Container.jsx";
+import {fetchInstance} from "../api/api.js";
 
 const Forecast = () => {
     const [forecast, setForecast] = useState([]);
