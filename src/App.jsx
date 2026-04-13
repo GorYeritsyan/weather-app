@@ -9,7 +9,6 @@ const App = () => {
         <Routes>
             <Route path="/" element={<RootLayout />}>
                 <Route index element={<Home />} />
-                <Route path="forecast" element={<Forecast />} />
                 <Route path="cities" element={<FavoriteCities />} />
             </Route>
         </Routes>

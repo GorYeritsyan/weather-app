@@ -6,6 +6,7 @@ import ForecastCard from "../components/shared/ForecastCard.jsx";
 import {useWeather} from "../providers/WeatherProvider.jsx";
 import ToggleUnits from "../components/shared/ToggleUnits.jsx";
 import { LuLoaderCircle } from "react-icons/lu"
+import Spinner from "../components/ui/Spinner.jsx";
 
 const Home = () => {
     const [coordinates, setCoordinates] = useState(null);
@@ -23,13 +24,11 @@ const Home = () => {
     function handleLocationSuccess(pos) {
         if (selectedCity) {
             setCoordinates({ lat: selectedCity?.lat, lon: selectedCity?.lon });
-            setIsLocationLoading(false);
             return;
         }
 
         const crd = pos.coords;
         setCoordinates({ lat: crd?.latitude, lon: crd?.longitude });
-        setIsLocationLoading(false);
     }
 
     function handleLocationError(err) {
@@ -39,17 +38,25 @@ const Home = () => {
 
     useEffect(() => {
         if (coordinates) {
+            setIsLocationLoading(true);
             fetch(`${import.meta.env.VITE_BASE_URL}/forecast?lat=${coordinates?.lat}&lon=${coordinates?.lon}&units=${units}&appid=${import.meta.env.VITE_API_KEY}`)
                 .then(res => res.json())
-                .then(data => setForecast(data.list))
+                .then(data => {
+                    setForecast(data.list);
+                    setIsLocationLoading(false);
+                })
         }
     }, [units, coordinates]);
 
     useEffect(() => {
         if (coordinates) {
+            setIsLocationLoading(true);
             fetch(`${import.meta.env.VITE_BASE_URL}/weather?lat=${coordinates?.lat}&lon=${coordinates?.lon}&units=${units}&appid=${import.meta.env.VITE_API_KEY}`)
                 .then(res => res.json())
-                .then(res => setCurrentWeather(res));
+                .then(res => {
+                    setCurrentWeather(res);
+                    setIsLocationLoading(false);
+                });
         }
     }, [coordinates, units]);
 
@@ -62,7 +69,6 @@ const Home = () => {
     }, [forecast]);
 
     useEffect(() => {
-        setIsLocationLoading(true);
         navigator.geolocation.getCurrentPosition(handleLocationSuccess, handleLocationError);
     }, []);
 
@@ -91,9 +97,7 @@ const Home = () => {
                 </div>
 
                 {isLocationLoading || !currentWeather || !groupedForecast ? (
-                    <div className="flex items-center justify-center">
-                        <LuLoaderCircle className="size-14 animate-spin" />
-                    </div>
+                    <Spinner />
                 ) : (
                     <div className="flex flex-col items-start gap-4">
                         {/* 5 Day Forecast */}

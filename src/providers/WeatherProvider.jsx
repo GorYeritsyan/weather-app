@@ -4,7 +4,18 @@ const WeatherContext = createContext(null);
 
 const WeatherProvider = ({ children }) => {
     const [units, setUnits] = useState("metric");
+
     const [selectedCity, setSelectedCity] = useState("");
+    const [favoriteCities, setFavoriteCities] = useState([]);
+
+    function handleAddToFavorite(newCity) {
+        newCity.id = crypto.randomUUID();
+        setFavoriteCities([...favoriteCities, newCity]);
+    }
+
+    function handleRemoveFromFavorite(cityId) {
+        setFavoriteCities(prev => prev.filter(city => city.id !== cityId));
+    }
 
     function changeToFahrenheit() {
         setUnits("imperial");
@@ -18,6 +29,9 @@ const WeatherProvider = ({ children }) => {
         <WeatherContext.Provider value={{
             changeToCelsius,
             changeToFahrenheit,
+            handleAddToFavorite,
+            handleRemoveFromFavorite,
+            favoriteCities,
             units,
             selectedCity,
             setSelectedCity

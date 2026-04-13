@@ -1,16 +1,10 @@
-import { useState } from "react";
+import { useWeather } from "../providers/WeatherProvider.jsx";
 import Container from "../components/shared/Container.jsx";
 import SearchInput from "../components/shared/SearchInput.jsx";
 import Cities from "../components/shared/Cities.jsx";
 
 const FavoriteCities = () => {
-    const [favoriteCities, setFavoriteCities] = useState([]);
-
-    function handleAddToFavorite(newCity) {
-        setFavoriteCities([...favoriteCities, newCity]);
-    }
-
-    console.log(favoriteCities);
+    const { favoriteCities } = useWeather();
 
     return (
         <Container>
@@ -18,7 +12,7 @@ const FavoriteCities = () => {
                 <h3 className="text-3xl font-semibold">Favorite Cities</h3>
 
                 <div className="flex flex-col gap-4">
-                    <SearchInput favoriteCities={favoriteCities} onAddToFavorite={handleAddToFavorite} />
+                    <SearchInput />
                     <Cities cities={favoriteCities} />
                 </div>
             </div>
