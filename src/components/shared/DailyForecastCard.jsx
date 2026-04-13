@@ -4,16 +4,20 @@ import WeatherIcon from "./WeatherIcon.jsx";
 const DailyForecastCard = ({ dailyForecastDetails, selectedDay, onDayChange }) => {
     const [day, hours] = dailyForecastDetails;
 
-    function getWeekDay(date) {
-        return new Date(date).toDateString().split(" ")?.[0];
+    const dailyTemps = hours.map(hour => Math.round(hour?.main?.temp));
+    const minTemp = Math.min(...dailyTemps);
+    const maxTemp = Math.max(...dailyTemps);
+    console.log("hours", minTemp, maxTemp);
+
+    function getWeekDay(newDate) {
+        const date = new Date(newDate).toDateString().split(" ");
+        return `${date?.[0]} ${date?.[2]}`;
     }
 
     const weekDay = getWeekDay(day);
     const currentDay = getWeekDay(Date.now());
 
-    console.log(hours)
     const weatherIcon = hours?.[0]?.weather?.[0]?.icon;
-    const averageTemp = Math.round(hours?.reduce((acc, forecast) => acc + forecast?.main?.temp, 0) / hours?.length);
 
     return (
         <div
@@ -27,7 +31,7 @@ const DailyForecastCard = ({ dailyForecastDetails, selectedDay, onDayChange }) =
                 </span>
 
                 <span className="font-semibold">
-                    {averageTemp}°
+                    {minTemp}°-{maxTemp}°
                 </span>
             </div>
 
