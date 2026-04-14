@@ -1,13 +1,13 @@
 import { useModal } from "./Modal.jsx";
-import { cn } from "../../../utils/index.js";
+import Button from "../Button.jsx";
 
-const ModalClose = ({ children, className }) => {
+const ModalClose = ({ children, variant }) => {
     const { closeModal } = useModal();
 
     return (
-        <button onClick={closeModal} className={cn("font-semibold text-blue-500 hover:text-blue-600 active:bg-blue-200 cursor-pointer hover:bg-blue-100 px-3 py-1 rounded-full", className)}>
+        <Button onClick={closeModal} variant={variant}>
             {children}
-        </button>
+        </Button>
     );
 }
 

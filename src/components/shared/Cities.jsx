@@ -10,8 +10,8 @@ const Cities = ({ cities }) => {
     const { handleSelectFavoriteCity, handleRemoveFromFavorite, currentCity, selectedCity } = useWeather();
 
     function selectFavoriteCity(city) {
-        handleSelectFavoriteCity(city);
-        navigate("/");
+        // handleSelectFavoriteCity(city);
+        navigate(`/favorites/${city.country}/${city.name}`);
     }
 
     function removeFavoriteCity(city) {

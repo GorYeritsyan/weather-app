@@ -1,7 +1,7 @@
-import { cn } from "../../../utils/index.js";
 import { useModal } from "./Modal.jsx";
+import Button from "../Button.jsx";
 
-const ModalSubmit = ({ children, onSubmit, className }) => {
+const ModalSubmit = ({ children, onSubmit, variant }) => {
     const { closeModal } = useModal();
 
     function handleSubmit() {
@@ -10,12 +10,12 @@ const ModalSubmit = ({ children, onSubmit, className }) => {
     }
 
     return (
-        <button
+        <Button
             onClick={handleSubmit}
-            className={cn("font-semibold text-blue-500 hover:text-blue-600 active:bg-blue-200 cursor-pointer hover:bg-blue-100 px-3 py-1 rounded-full", className)}
+            variant={variant}
         >
             {children}
-        </button>
+        </Button>
     );
 }
 

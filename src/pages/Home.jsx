@@ -8,6 +8,7 @@ import DailyForecast from "../components/shared/DailyForecast.jsx";
 import ForecastCard from "../components/shared/ForecastCard.jsx";
 import ToggleUnits from "../components/shared/ToggleUnits.jsx";
 import Spinner from "../components/ui/Spinner.jsx";
+import WeatherForecast from "../components/shared/WeatherForecast.jsx";
 
 const Home = () => {
     const { selectedCity, currentCity, currentWeather, isLoading, setIsLoading, units } = useWeather();
@@ -56,31 +57,24 @@ const Home = () => {
     return (
         <Container>
             <div className="flex flex-col py-10 gap-8">
-                <div className="flex items-center gap-4">
-                    <h1 className="text-4xl font-bold">Weather Forecast</h1>
-                </div>
-
                 {isLoading ? (
                     <Spinner />
                 ) : !currentWeather || !groupedForecast ? (
                     <h2 className="text-xl font-semibold">We couldn't find weather data for this location. Try searching with a different city name or add a country code (e.g. "Paris, FR").</h2>
                 ) : (
-                    <div className="flex flex-col items-start gap-4">
-                        {/* 5-Day Forecast */}
-                        <DailyForecast dailyForecast={groupedForecast} selectedDay={selectedDay} onDayChange={handleDayChange} />
+                    <div className="flex flex-col items-start gap-10">
+                        {/* Current Weather Details */}
+                        <div className="flex flex-col gap-3">
+                            <h3 className="font-semibold text-3xl">Current Weather</h3>
+                            {/* Current Weather details */}
+                            <ForecastCard />
+                        </div>
 
-                        <div className="flex items-start gap-10">
-                            <div className="flex items-center justify-center">
-                                <div className="flex flex-col gap-3">
-                                    <h3 className="font-semibold text-2xl">Current Weather</h3>
+                        <div className="flex flex-col gap-5">
+                            <h2 className="text-3xl font-semibold">Weather Forecast</h2>
 
-                                    {/* Current Weather details */}
-                                    <ForecastCard />
-                                </div>
-                            </div>
-
-                            {/* 3-Hour forecast */}
-                            <HourlyForecast selectedDay={selectedDay} hourlyForecast={groupedForecast} />
+                            {/* Weather Forecast */}
+                            <WeatherForecast forecast={groupedForecast} selectedDay={selectedDay} onDayChange={handleDayChange} />
                         </div>
                     </div>
                 )}
