@@ -8,7 +8,7 @@ import Spinner from "../components/ui/Spinner.jsx";
 import WeatherForecast from "../components/shared/WeatherForecast.jsx";
 
 const Home = () => {
-    const { selectedCity, currentCity, currentWeather, isLoading, setIsLoading, units } = useWeather();
+    const { currentCity, isWeatherLoading, isForecastLoading, setIsForecastLoading, units } = useWeather();
 
     const [selectedDay, setSelectedDay] = useState(null);
     const [forecast, setForecast] = useState([]);
@@ -25,17 +25,17 @@ const Home = () => {
 
     // Fetch 5 day / 3-hour forecast data
     useEffect(() => {
-        const query = selectedCity ? `${selectedCity?.name},${selectedCity?.country}` : `${currentCity?.name},${currentCity?.country}`;
+        if (currentCity) {
+            const query = `${currentCity?.name},${currentCity?.country}`;
 
-        if (selectedCity || currentCity) {
-            setIsLoading(true);
+            setIsForecastLoading(true);
             weatherApi.fetchForecast(query, units)
                 .then(data => {
                     setForecast(data.list);
-                    setIsLoading(false);
+                    setIsForecastLoading(false);
                 })
         }
-    }, [units, selectedCity, currentCity]);
+    }, [units, currentCity]);
 
     // Initialize selected day state
     useEffect(() => {
@@ -54,7 +54,7 @@ const Home = () => {
     return (
         <Container>
             <div className="flex flex-col py-10 gap-8">
-                {isLoading || !currentWeather || !groupedForecast ? (
+                {isWeatherLoading || isForecastLoading ? (
                     <Spinner />
                 ) : (
                     <div className="flex flex-col items-start gap-10">

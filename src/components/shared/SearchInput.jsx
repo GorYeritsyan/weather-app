@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useWeather } from "../../providers/WeatherProvider.jsx";
 import SearchMenu from "./SearchMenu.jsx";
-import {weatherApi} from "../../api/api.js";
+import { weatherApi } from "../../api/api.js";
 
 const SearchInput = () => {
     const { favoriteCities } = useWeather();

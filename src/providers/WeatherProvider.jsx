@@ -7,13 +7,13 @@ const WeatherProvider = ({ children }) => {
     const [units, setUnits] = useState("metric");
 
     const [currentCity, setCurrentCity] = useState(null);
-    const [selectedCity, setSelectedCity] = useState(null);
 
     const [currentWeather, setCurrentWeather] = useState(null);
-
-    const [isLoading, setIsLoading] = useState(false);
-
     const [favoriteCities, setFavoriteCities] = useState([]);
+
+    const [isWeatherLoading, setIsWeatherLoading] = useState(false);
+    const [isForecastLoading, setIsForecastLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     function handleAddFavoriteCity(newCity) {
         newCity.id = crypto.randomUUID();
@@ -31,11 +31,11 @@ const WeatherProvider = ({ children }) => {
     function handleLocationCallback(pos) {
         const crd = pos.coords;
 
-        setIsLoading(true);
+        setIsWeatherLoading(true);
         weatherApi.fetchReverseGeolocation({ lat: crd?.latitude, lon: crd?.longitude })
             .then(res => {
                 setCurrentCity(res?.[0]);
-                setIsLoading(false);
+                setIsWeatherLoading(false);
             });
     }
 
@@ -44,17 +44,17 @@ const WeatherProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        const query = selectedCity ? `${selectedCity?.name},${selectedCity?.country}` : `${currentCity?.name},${currentCity?.country}`;
+        if (currentCity) {
+            const query = `${currentCity?.name},${currentCity?.country}`;
 
-        if (currentCity || selectedCity) {
-            setIsLoading(true);
+            setIsWeatherLoading(true);
             weatherApi.fetchWeather(query, units)
                 .then(res => {
                     setCurrentWeather(res);
-                    setIsLoading(false);
+                    setIsWeatherLoading(false);
                 })
         }
-    }, [currentCity, selectedCity, units]);
+    }, [currentCity, units]);
 
     return (
         <WeatherContext.Provider value={{
@@ -64,8 +64,10 @@ const WeatherProvider = ({ children }) => {
             currentCity,
             isLoading,
             setIsLoading,
+            isWeatherLoading,
+            isForecastLoading,
+            setIsForecastLoading,
             currentWeather,
-            selectedCity,
             favoriteCities,
             units,
         }}
