@@ -1,8 +1,10 @@
+import { imageBaseUrl } from "../../api/api.js";
+
 const WeatherIcon = ({ icon, className }) => {
     return (
         <img
             className={className}
-            src={`${import.meta.env.VITE_IMAGE_BASE_URL}/${icon}.png`}
+            src={`${imageBaseUrl}/${icon}.png`}
             alt="weather icon"
         />
     )

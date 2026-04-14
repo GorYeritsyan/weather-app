@@ -58,14 +58,13 @@ const Home = () => {
             <div className="flex flex-col py-10 gap-8">
                 <div className="flex items-center gap-4">
                     <h1 className="text-4xl font-bold">Weather Forecast</h1>
-
-                    {/* Toggle between celsius and fahrenheit */}
-                    <ToggleUnits />
                 </div>
 
                 {isLoading ? (
                     <Spinner />
-                ) : currentWeather && groupedForecast && !isLoading ? (
+                ) : !currentWeather || !groupedForecast ? (
+                    <h2 className="text-xl font-semibold">We couldn't find weather data for this location. Try searching with a different city name or add a country code (e.g. "Paris, FR").</h2>
+                ) : (
                     <div className="flex flex-col items-start gap-4">
                         {/* 5-Day Forecast */}
                         <DailyForecast dailyForecast={groupedForecast} selectedDay={selectedDay} onDayChange={handleDayChange} />
@@ -84,8 +83,6 @@ const Home = () => {
                             <HourlyForecast selectedDay={selectedDay} hourlyForecast={groupedForecast} />
                         </div>
                     </div>
-                ) : (
-                    <h2 className="text-xl font-semibold">We couldn't find weather data for this location. Try searching with a different city name or add a country code (e.g. "Paris, FR").</h2>
                 )}
             </div>
         </Container>

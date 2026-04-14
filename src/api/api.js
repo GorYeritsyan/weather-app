@@ -1,13 +1,20 @@
+export const imageBaseUrl = "//openweathermap.org/payload/api/media/file";
+
 class WeatherAPI {
+    constructor() {
+        this.baseUrl = "//api.openweathermap.org";
+        this.apiKey = import.meta.env.VITE_API_KEY;
+    }
+
     // Fetch Instance for Weather API
     fetchInstance(queryString) {
-        return fetch(`${import.meta.env.VITE_BASE_URL}${queryString}&appid=${import.meta.env.VITE_API_KEY}`)
+        return fetch(`${this.baseUrl}/data/2.5${queryString}&appid=${this.apiKey}`)
             .then(res => res.json());
     }
 
     // Fetch Instance for Geocoding API
     fetchGeolocationInstance(queryString) {
-        return fetch(`${import.meta.env.VITE_GEOCODING_BASE_URL}${queryString}&appid=${import.meta.env.VITE_API_KEY}`)
+        return fetch(`${this.baseUrl}/geo/1.0${queryString}&appid=${this.apiKey}`)
             .then(res => res.json());
     }
 
