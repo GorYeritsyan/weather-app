@@ -28,15 +28,14 @@ const Home = () => {
     // Fetch 5 day / 3-hour forecast data
     useEffect(() => {
         const query = selectedCity ? `${selectedCity?.name},${selectedCity?.country}` : `${currentCity?.name},${currentCity?.country}`;
-        console.log(query);
 
         if (selectedCity || currentCity) {
             setIsLoading(true);
-            weatherApi.fetchWeather(`forecast?q=${query}&units=${units}`)
+            weatherApi.fetchForecast(query, units)
                 .then(data => {
                     setForecast(data.list);
                     setIsLoading(false);
-                });
+                })
         }
     }, [units, selectedCity, currentCity]);
 

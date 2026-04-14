@@ -24,11 +24,11 @@ const SearchInput = () => {
         setIsOpen(true);
 
         // Fetch geolocation
-        weatherApi.fetchGeolocations({ query: cityName })
+        weatherApi.fetchDirectGeolocation(cityName)
             .then(cities => {
                 setSearchedCities(cities);
                 setIsSearching(false);
-            });
+            })
     }
 
     function handleToggleSearchMenu() {

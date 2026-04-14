@@ -40,7 +40,7 @@ const WeatherProvider = ({ children }) => {
         const crd = pos.coords;
 
         setIsLoading(true);
-        weatherApi.fetchGeolocations({ lat: crd?.latitude, lon: crd?.longitude, endpoint: "reverse" })
+        weatherApi.fetchReverseGeolocation({ lat: crd?.latitude, lon: crd?.longitude })
             .then(res => {
                 setCurrentCity(res?.[0]);
                 setIsLoading(false);
@@ -63,11 +63,11 @@ const WeatherProvider = ({ children }) => {
 
         if (query) {
             setIsLoading(true);
-            weatherApi.fetchWeather(`weather?q=${query}&units=${units}`)
+            weatherApi.fetchWeather(query, units)
                 .then(res => {
                     setCurrentWeather(res);
                     setIsLoading(false);
-                });
+                })
         }
     }, [currentCity, selectedCity, units]);
 
