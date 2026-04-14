@@ -28,12 +28,8 @@ const WeatherProvider = ({ children }) => {
         setSelectedCity(selectedCity);
     }
 
-    function changeToFahrenheit() {
-        setUnits("imperial");
-    }
-
-    function changeToCelsius() {
-        setUnits("metric");
+    function changeUnits(units) {
+        setUnits(units);
     }
 
     function handleLocationCallback(pos) {
@@ -51,17 +47,9 @@ const WeatherProvider = ({ children }) => {
         navigator.geolocation.getCurrentPosition(handleLocationCallback);
     }, []);
 
-    // Add current city to favorite cities list
-    useEffect(() => {
-        if (currentCity) {
-            setFavoriteCities(prev => [...prev, { ...currentCity }]);
-        }
-    }, [currentCity]);
-
     useEffect(() => {
         const query = selectedCity ? `${selectedCity?.name},${selectedCity?.country}` : `${currentCity?.name},${currentCity?.country}`;
 
-        console.log("run", currentCity, selectedCity)
         if (currentCity || selectedCity) {
             setIsLoading(true);
             weatherApi.fetchWeather(query, units)
@@ -74,8 +62,7 @@ const WeatherProvider = ({ children }) => {
 
     return (
         <WeatherContext.Provider value={{
-            changeToCelsius,
-            changeToFahrenheit,
+            changeUnits,
             handleAddToFavorite,
             handleRemoveFromFavorite,
             currentCity,
