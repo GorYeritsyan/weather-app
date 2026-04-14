@@ -3,10 +3,7 @@ import { useWeather } from "../providers/WeatherProvider.jsx";
 import { weatherApi } from "../api/api.js";
 
 import Container from "../components/shared/Container.jsx";
-import HourlyForecast from "../components/shared/HourlyForecast.jsx";
-import DailyForecast from "../components/shared/DailyForecast.jsx";
 import ForecastCard from "../components/shared/ForecastCard.jsx";
-import ToggleUnits from "../components/shared/ToggleUnits.jsx";
 import Spinner from "../components/ui/Spinner.jsx";
 import WeatherForecast from "../components/shared/WeatherForecast.jsx";
 
