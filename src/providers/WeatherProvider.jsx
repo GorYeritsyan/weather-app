@@ -11,21 +11,17 @@ const WeatherProvider = ({ children }) => {
 
     const [currentWeather, setCurrentWeather] = useState(null);
 
-    const [favoriteCities, setFavoriteCities] = useState([]);
-
     const [isLoading, setIsLoading] = useState(false);
 
-    function handleAddToFavorite(newCity) {
+    const [favoriteCities, setFavoriteCities] = useState([]);
+
+    function handleAddFavoriteCity(newCity) {
         newCity.id = crypto.randomUUID();
         setFavoriteCities([...favoriteCities, newCity]);
     }
 
-    function handleRemoveFromFavorite(cityId) {
+    function handleRemoveFavoriteCity(cityId) {
         setFavoriteCities(prev => prev.filter(city => city.id !== cityId));
-    }
-
-    function handleSelectFavoriteCity(selectedCity) {
-        setSelectedCity(selectedCity);
     }
 
     function changeUnits(units) {
@@ -63,8 +59,8 @@ const WeatherProvider = ({ children }) => {
     return (
         <WeatherContext.Provider value={{
             changeUnits,
-            handleAddToFavorite,
-            handleRemoveFromFavorite,
+            handleAddFavoriteCity,
+            handleRemoveFavoriteCity,
             currentCity,
             isLoading,
             setIsLoading,
@@ -72,7 +68,6 @@ const WeatherProvider = ({ children }) => {
             selectedCity,
             favoriteCities,
             units,
-            handleSelectFavoriteCity
         }}
         >
             {children}

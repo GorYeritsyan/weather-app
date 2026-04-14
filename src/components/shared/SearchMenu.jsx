@@ -1,8 +1,8 @@
 import { useWeather } from "../../providers/WeatherProvider.jsx";
 import Spinner from "../ui/Spinner.jsx";
 
-const SearchMenu = ({ isSearching, searchedCities }) => {
-    const { handleAddToFavorite } = useWeather();
+const SearchMenu = ({ isSearching, searchedCities}) => {
+    const { handleAddFavoriteCity } = useWeather();
 
     return (
         <div className="absolute top-full mt-1 bg-white rounded-xl border-gray-200 shadow-md shadow-gray-200 w-full h-fit">
@@ -25,7 +25,7 @@ const SearchMenu = ({ isSearching, searchedCities }) => {
                             </div>
 
                             <button
-                                onClick={() => handleAddToFavorite(city)}
+                                onClick={() => handleAddFavoriteCity(city)}
                                 className="text-blue-500 cursor-pointer hover:text-blue-600 px-3 py-1 active:bg-blue-200 hover:bg-blue-100 rounded-full"
                             >
                                 Add to favorite

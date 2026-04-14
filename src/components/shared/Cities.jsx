@@ -1,22 +1,15 @@
 import { useNavigate } from "react-router";
-import { FaLocationDot } from "react-icons/fa6";
-
 import { useWeather } from "../../providers/WeatherProvider.jsx";
+
 import { cn } from "../../utils/index.js";
 import DeleteModalButton from "./DeleteModalButton.jsx";
 
 const Cities = ({ cities }) => {
     const navigate = useNavigate();
-    const { handleSelectFavoriteCity, handleRemoveFromFavorite, currentCity } = useWeather();
+    const { handleRemoveFavoriteCity } = useWeather();
 
-    function selectFavoriteCity(city) {
+    function navigateToFavoriteCity(city) {
         navigate(`/favorites/${city.country}/${city.name}`);
-    }
-
-    function removeFavoriteCity(city) {
-        handleRemoveFromFavorite(city.id);
-
-        handleSelectFavoriteCity(currentCity);
     }
 
     return (
@@ -24,7 +17,7 @@ const Cities = ({ cities }) => {
            {cities?.length > 0 ? cities?.map(city => (
                <div key={city.lon} className="flex items-center gap-2">
                    <div
-                       onClick={() => selectFavoriteCity(city)}
+                       onClick={() => navigateToFavoriteCity(city)}
                        className={cn("rounded-full text-lg px-5 py-2 font-semibold bg-blue-100 cursor-pointer flex items-center justify-center gap-3 hover:bg-blue-200")}
                    >
                        <span>
@@ -35,7 +28,7 @@ const Cities = ({ cities }) => {
                    <DeleteModalButton
                        title="Delete City"
                        description="Are you sure you want to delete this city?"
-                       onDelete={() => removeFavoriteCity(city)}
+                       onDelete={() => handleRemoveFavoriteCity(city?.id)}
                    />
                </div>
            )) : (
