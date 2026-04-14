@@ -10,18 +10,7 @@ import WeatherForecast from "../components/shared/WeatherForecast.jsx";
 const Home = () => {
     const { currentCity, isWeatherLoading, isForecastLoading, setIsForecastLoading, units } = useWeather();
 
-    const [selectedDay, setSelectedDay] = useState(null);
     const [forecast, setForecast] = useState([]);
-
-    // Group Forecast data by day
-    const groupedForecast = forecast?.reduce((acc, item) => {
-        const day = item?.dt_txt?.split(" ")[0];
-
-        if (!acc[day]) acc[day] = [];
-        acc[day].push(item);
-
-        return acc;
-    }, {});
 
     // Fetch 5 day / 3-hour forecast data
     useEffect(() => {
@@ -36,20 +25,6 @@ const Home = () => {
                 })
         }
     }, [units, currentCity]);
-
-    // Initialize selected day state
-    useEffect(() => {
-        const currentDay = groupedForecast && Object.keys(groupedForecast)?.[0];
-
-        if (!selectedDay) {
-            setSelectedDay(currentDay);
-        }
-    }, [forecast]);
-
-    // Function to select day
-    function handleDayChange(day) {
-        setSelectedDay(day);
-    }
 
     return (
         <Container>
@@ -69,7 +44,7 @@ const Home = () => {
                             <h2 className="text-3xl font-semibold">Weather Forecast</h2>
 
                             {/* Weather Forecast */}
-                            <WeatherForecast forecast={groupedForecast} selectedDay={selectedDay} onDayChange={handleDayChange} />
+                            <WeatherForecast forecast={forecast} />
                         </div>
                     </div>
                 )}

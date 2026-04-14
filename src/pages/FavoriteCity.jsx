@@ -12,18 +12,7 @@ const FavoriteCity = () => {
     const { cityName, countryName } = useParams();
     const { units } = useWeather();
 
-    const [selectedDay, setSelectedDay] = useState(null);
     const [forecast, setForecast] = useState([]);
-
-    // Group Forecast data by day
-    const groupedForecast = forecast?.reduce((acc, item) => {
-        const day = item?.dt_txt?.split(" ")[0];
-
-        if (!acc[day]) acc[day] = [];
-        acc[day].push(item);
-
-        return acc;
-    }, {});
 
     // Fetch 5 day / 3-hour forecast data
     useEffect(() => {
@@ -33,21 +22,6 @@ const FavoriteCity = () => {
                 setForecast(data.list);
             })
     }, [units, cityName]);
-
-
-    // Initialize selected day state
-    useEffect(() => {
-        const currentDay = groupedForecast && Object.keys(groupedForecast)?.[0];
-
-        if (!selectedDay) {
-            setSelectedDay(currentDay);
-        }
-    }, [forecast]);
-
-    // Function to select day
-    function handleDayChange(day) {
-        setSelectedDay(day);
-    }
 
     function goBack() {
         navigate(-1);
@@ -66,7 +40,7 @@ const FavoriteCity = () => {
                     </div>
 
                     {/* Weather Forecast */}
-                    <WeatherForecast forecast={groupedForecast} selectedDay={selectedDay} onDayChange={handleDayChange} />
+                    <WeatherForecast forecast={forecast} />
                 </div>
             </div>
         </Container>
