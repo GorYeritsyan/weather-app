@@ -65,7 +65,7 @@ const Home = () => {
 
                 {isLoading ? (
                     <Spinner />
-                ) : currentWeather && groupedForecast ? (
+                ) : currentWeather && groupedForecast && !isLoading ? (
                     <div className="flex flex-col items-start gap-4">
                         {/* 5-Day Forecast */}
                         <DailyForecast dailyForecast={groupedForecast} selectedDay={selectedDay} onDayChange={handleDayChange} />

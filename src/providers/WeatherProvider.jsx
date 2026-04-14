@@ -54,13 +54,14 @@ const WeatherProvider = ({ children }) => {
     // Add current city to favorite cities list
     useEffect(() => {
         if (currentCity) {
-            setFavoriteCities(prev => [...prev, { ...currentCity }]);
+            setFavoriteCities(prev => [...prev, { id: crypto.randomUUID(), ...currentCity }]);
         }
     }, [currentCity]);
 
     useEffect(() => {
         const query = selectedCity ? `${selectedCity?.name},${selectedCity?.country}` : `${currentCity?.name},${currentCity?.country}`;
 
+        console.log("run", query)
         if (query) {
             setIsLoading(true);
             weatherApi.fetchWeather(query, units)
