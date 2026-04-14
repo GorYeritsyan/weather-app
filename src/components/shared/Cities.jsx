@@ -7,10 +7,9 @@ import DeleteModalButton from "./DeleteModalButton.jsx";
 
 const Cities = ({ cities }) => {
     const navigate = useNavigate();
-    const { handleSelectFavoriteCity, handleRemoveFromFavorite, currentCity, selectedCity } = useWeather();
+    const { handleSelectFavoriteCity, handleRemoveFromFavorite, currentCity } = useWeather();
 
     function selectFavoriteCity(city) {
-        // handleSelectFavoriteCity(city);
         navigate(`/favorites/${city.country}/${city.name}`);
     }
 
@@ -22,7 +21,7 @@ const Cities = ({ cities }) => {
 
     return (
        <div className="flex flex-col gap-4">
-           {cities?.map(city => (
+           {cities?.length > 0 ? cities?.map(city => (
                <div key={city.lon} className="flex items-center gap-2">
                    <div
                        onClick={() => selectFavoriteCity(city)}
@@ -39,7 +38,9 @@ const Cities = ({ cities }) => {
                        onDelete={() => removeFavoriteCity(city)}
                    />
                </div>
-           ))}
+           )) : (
+               <p className="text-gray-500 font-semibold text-center">There is no favorite cities</p>
+           )}
        </div>
     )
 }

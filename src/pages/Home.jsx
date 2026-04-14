@@ -57,10 +57,8 @@ const Home = () => {
     return (
         <Container>
             <div className="flex flex-col py-10 gap-8">
-                {isLoading ? (
+                {isLoading || !currentWeather || !groupedForecast ? (
                     <Spinner />
-                ) : !currentWeather || !groupedForecast ? (
-                    <h2 className="text-xl font-semibold">We couldn't find weather data for this location. Try searching with a different city name or add a country code (e.g. "Paris, FR").</h2>
                 ) : (
                     <div className="flex flex-col items-start gap-10">
                         {/* Current Weather Details */}

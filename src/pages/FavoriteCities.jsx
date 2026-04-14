@@ -11,7 +11,7 @@ const FavoriteCities = () => {
             <div className="flex flex-col gap-6 py-10">
                 <h3 className="text-3xl font-semibold">Favorite Cities</h3>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 w-fit">
                     <SearchInput />
                     <Cities cities={favoriteCities} />
                 </div>
