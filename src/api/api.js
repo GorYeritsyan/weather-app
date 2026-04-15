@@ -9,7 +9,7 @@ class WeatherAPI {
     // Fetch Instance for Weather API
     fetchInstance(queryString) {
         return fetch(`${this.baseUrl}/data/2.5${queryString}&appid=${this.apiKey}`)
-            .then(res => res.json());
+            .then(res => res.json())
     }
 
     // Fetch Instance for Geocoding API

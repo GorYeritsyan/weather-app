@@ -7,7 +7,7 @@ import WeatherForecastSkeleton from "./skeletons/WeatherForecastSkeleton.jsx";
 
 import { weatherApi } from "../../api/api.js";
 
-const WeatherForecast = ({  cityName, countryName, selectedDay, onDayChange }) => {
+const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }) => {
     const { units } = useWeather();
 
     const [forecast, setForecast] = useState([]);
@@ -40,10 +40,12 @@ const WeatherForecast = ({  cityName, countryName, selectedDay, onDayChange }) =
 
     // Initialize selected day state
     useEffect(() => {
-        const currentDay = groupedForecast && Object.keys(groupedForecast)?.[0];
+        if (groupedForecast) {
+            const currentDay = Object.keys(groupedForecast)?.[0];
 
-        if (!selectedDay) {
-            onDayChange(currentDay);
+            if (!selectedDay) {
+                onDayChange(currentDay);
+            }
         }
     }, [forecast]);
 
@@ -51,6 +53,13 @@ const WeatherForecast = ({  cityName, countryName, selectedDay, onDayChange }) =
     if (isLoading) return (
         <WeatherForecastSkeleton />
     );
+
+    // Show Error Message if there is no data
+    if (!forecast) {
+        return (
+            <p className="text-lg font-semibold">Forecast data is not available for this location.</p>
+        )
+    }
 
     return (
         <div className="flex flex-col gap-5">
