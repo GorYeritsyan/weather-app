@@ -1,5 +1,4 @@
 import DailyForecastCard from "./DailyForecastCard.jsx";
-import HourlyForecast from "./HourlyForecast.jsx";
 
 const DailyForecast = ({ dailyForecast, selectedDay, onDayChange }) => {
     return (

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useWeather } from "../providers/WeatherProvider.jsx";
-import { weatherApi } from "../api/api.js";
 
 import Container from "../components/shared/Container.jsx";
 import ForecastCard from "../components/shared/ForecastCard.jsx";
@@ -8,23 +7,12 @@ import Spinner from "../components/ui/Spinner.jsx";
 import WeatherForecast from "../components/shared/WeatherForecast.jsx";
 
 const Home = () => {
-    const { currentCity, isWeatherLoading, isForecastLoading, setIsForecastLoading, units } = useWeather();
+    const { currentCity, isWeatherLoading, isForecastLoading } = useWeather();
+    const [selectedDay, setSelectedDay] = useState(null);
 
-    const [forecast, setForecast] = useState([]);
-
-    // Fetch 5 day / 3-hour forecast data
-    useEffect(() => {
-        if (currentCity) {
-            const query = `${currentCity?.name},${currentCity?.country}`;
-
-            setIsForecastLoading(true);
-            weatherApi.fetchForecast(query, units)
-                .then(data => {
-                    setForecast(data.list);
-                    setIsForecastLoading(false);
-                })
-        }
-    }, [units, currentCity]);
+    function handleDayChange(day) {
+        setSelectedDay(day);
+    }
 
     return (
         <Container>
@@ -40,11 +28,16 @@ const Home = () => {
                             <ForecastCard />
                         </div>
 
-                        <div className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-5 w-full">
                             <h2 className="text-3xl font-semibold">Weather Forecast</h2>
 
                             {/* Weather Forecast */}
-                            <WeatherForecast forecast={forecast} />
+                            <WeatherForecast
+                                cityName={currentCity?.name}
+                                countryName={currentCity?.country}
+                                selectedDay={selectedDay}
+                                onDayChange={handleDayChange}
+                            />
                         </div>
                     </div>
                 )}
