@@ -1,15 +1,27 @@
 import { useEffect, useState } from "react";
+import { useWeather } from "../../providers/WeatherProvider.jsx";
+
 import DailyForecast from "./DailyForecast.jsx";
 import HourlyForecast from "./HourlyForecast.jsx";
-import {useWeather} from "../../providers/WeatherProvider.jsx";
-import {weatherApi} from "../../api/api.js";
 import WeatherForecastSkeleton from "./skeletons/WeatherForecastSkeleton.jsx";
 
+import { weatherApi } from "../../api/api.js";
+
 const WeatherForecast = ({  cityName, countryName, selectedDay, onDayChange }) => {
-    const [isLoading, setIsLoading] = useState(false);
+    const { units } = useWeather();
 
     const [forecast, setForecast] = useState([]);
-    const { units } = useWeather();
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Group Forecast data by day
+    const groupedForecast = forecast?.reduce((acc, item) => {
+        const day = item?.dt_txt?.split(" ")[0];
+
+        if (!acc[day]) acc[day] = [];
+        acc[day].push(item);
+
+        return acc;
+    }, {});
 
     // Fetch 5 day / 3-hour forecast data
     useEffect(() => {
@@ -26,16 +38,6 @@ const WeatherForecast = ({  cityName, countryName, selectedDay, onDayChange }) =
         }
     }, [units, cityName, countryName]);
 
-    // Group Forecast data by day
-    const groupedForecast = forecast?.reduce((acc, item) => {
-        const day = item?.dt_txt?.split(" ")[0];
-
-        if (!acc[day]) acc[day] = [];
-        acc[day].push(item);
-
-        return acc;
-    }, {});
-
     // Initialize selected day state
     useEffect(() => {
         const currentDay = groupedForecast && Object.keys(groupedForecast)?.[0];
@@ -45,6 +47,7 @@ const WeatherForecast = ({  cityName, countryName, selectedDay, onDayChange }) =
         }
     }, [forecast]);
 
+    // Show Weather forecast skeleton when loading data
     if (isLoading) return (
         <WeatherForecastSkeleton />
     );

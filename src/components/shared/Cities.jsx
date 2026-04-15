@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router";
 import { useWeather } from "../../providers/WeatherProvider.jsx";
 
-import { cn } from "../../utils/index.js";
 import DeleteModalButton from "./DeleteModalButton.jsx";
+import { cn } from "../../utils/index.js";
 
-const Cities = ({ cities }) => {
+
+const Cities = () => {
     const navigate = useNavigate();
-    const { handleRemoveFavoriteCity } = useWeather();
+    const { handleRemoveFavoriteCity, favoriteCities } = useWeather();
 
     function navigateToFavoriteCity(city) {
         navigate(`/favorites/${city.country}/${city.name}`);
@@ -14,7 +15,7 @@ const Cities = ({ cities }) => {
 
     return (
        <div className="flex flex-col gap-4">
-           {cities?.length > 0 ? cities?.map(city => (
+           {favoriteCities?.length > 0 ? favoriteCities?.map(city => (
                <div key={city.lon} className="flex items-center gap-2">
                    <div
                        onClick={() => navigateToFavoriteCity(city)}

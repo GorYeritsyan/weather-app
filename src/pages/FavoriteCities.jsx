@@ -1,11 +1,8 @@
-import { useWeather } from "../providers/WeatherProvider.jsx";
 import Container from "../components/shared/Container.jsx";
 import SearchInput from "../components/shared/SearchInput.jsx";
 import Cities from "../components/shared/Cities.jsx";
 
 const FavoriteCities = () => {
-    const { favoriteCities } = useWeather();
-
     return (
         <Container>
             <div className="flex flex-col gap-6 py-10">
@@ -13,7 +10,7 @@ const FavoriteCities = () => {
 
                 <div className="flex flex-col gap-4 w-fit">
                     <SearchInput />
-                    <Cities cities={favoriteCities} />
+                    <Cities />
                 </div>
             </div>
         </Container>

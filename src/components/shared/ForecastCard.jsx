@@ -1,8 +1,34 @@
+import { useEffect, useState } from "react";
 import { useWeather } from "../../providers/WeatherProvider.jsx";
+
 import WeatherIcon from "./WeatherIcon.jsx";
+import CurrentWeatherSkeleton from "./skeletons/CurrentWeatherSkeleton.jsx";
+
+import { weatherApi } from "../../api/api.js";
 
 const ForecastCard = () => {
-    const { currentWeather } = useWeather();
+    const { currentCity, units } = useWeather();
+
+    const [currentWeather, setCurrentWeather] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (currentCity) {
+            const query = `${currentCity?.name},${currentCity?.country}`;
+
+            setIsLoading(true);
+            weatherApi.fetchWeather(query, units)
+                .then(res => {
+                    setCurrentWeather(res);
+                    setIsLoading(false);
+                })
+        }
+    }, [currentCity, units]);
+
+    // Show Current Weather Skeleton when loading data
+    if (isLoading) return (
+        <CurrentWeatherSkeleton />
+    );
 
     return (
         <div className="flex flex-col gap-15 px-5 py-4 rounded-xl bg-blue-400/40 shadow-sm shadow-gray-200 min-w-95">

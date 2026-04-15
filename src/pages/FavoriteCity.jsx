@@ -1,21 +1,20 @@
-import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import {weatherApi} from "../api/api.js";
+
 import WeatherForecast from "../components/shared/WeatherForecast.jsx";
-import {useWeather} from "../providers/WeatherProvider.jsx";
 import Container from "../components/shared/Container.jsx";
 import Button from "../components/ui/Button.jsx";
 
 const FavoriteCity = () => {
+    const { cityName, countryName } = useParams();
     const navigate = useNavigate();
+
     const [selectedDay, setSelectedDay] = useState(null);
 
     function handleDayChange(day) {
         setSelectedDay(day);
     }
-
-    const { cityName, countryName } = useParams();
 
     function goBack() {
         navigate(-1);
@@ -34,7 +33,12 @@ const FavoriteCity = () => {
                     </div>
 
                     {/* Weather Forecast */}
-                    <WeatherForecast cityName={cityName} countryName={countryName} selectedDay={selectedDay} onDayChange={handleDayChange} />
+                    <WeatherForecast
+                        cityName={cityName}
+                        countryName={countryName}
+                        selectedDay={selectedDay}
+                        onDayChange={handleDayChange}
+                    />
                 </div>
             </div>
         </Container>

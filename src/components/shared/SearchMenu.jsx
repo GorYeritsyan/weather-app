@@ -1,7 +1,7 @@
 import { useWeather } from "../../providers/WeatherProvider.jsx";
 import Spinner from "../ui/Spinner.jsx";
 
-const SearchMenu = ({ isSearching, searchedCities}) => {
+const SearchMenu = ({ isSearching, searchedCities }) => {
     const { handleAddFavoriteCity } = useWeather();
 
     return (

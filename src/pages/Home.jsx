@@ -7,7 +7,7 @@ import Spinner from "../components/ui/Spinner.jsx";
 import WeatherForecast from "../components/shared/WeatherForecast.jsx";
 
 const Home = () => {
-    const { currentCity, isWeatherLoading, isForecastLoading } = useWeather();
+    const { currentCity, isLocationLoading } = useWeather();
     const [selectedDay, setSelectedDay] = useState(null);
 
     function handleDayChange(day) {
@@ -17,13 +17,14 @@ const Home = () => {
     return (
         <Container>
             <div className="flex flex-col py-10 gap-8">
-                {isWeatherLoading || isForecastLoading ? (
+                {isLocationLoading ? (
                     <Spinner />
                 ) : (
                     <div className="flex flex-col items-start gap-10">
                         {/* Current Weather Details */}
                         <div className="flex flex-col gap-3">
                             <h3 className="font-semibold text-3xl">Current Weather</h3>
+
                             {/* Current Weather details */}
                             <ForecastCard />
                         </div>
