@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useWeather } from "../providers/WeatherProvider.jsx";
 
 import Container from "../components/shared/Container.jsx";
-import ForecastCard from "../components/shared/ForecastCard.jsx";
+import CurrentWeather from "../components/shared/CurrentWeather.jsx";
 import Spinner from "../components/ui/Spinner.jsx";
 import WeatherForecast from "../components/shared/WeatherForecast.jsx";
 
@@ -26,7 +26,7 @@ const Home = () => {
                             <h3 className="font-semibold text-3xl">Current Weather</h3>
 
                             {/* Current Weather details */}
-                            <ForecastCard />
+                            <CurrentWeather />
                         </div>
 
                         <div className="flex flex-col gap-5 w-full">

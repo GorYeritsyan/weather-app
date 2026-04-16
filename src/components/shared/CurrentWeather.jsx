@@ -6,7 +6,7 @@ import CurrentWeatherSkeleton from "./skeletons/CurrentWeatherSkeleton.jsx";
 
 import { weatherApi } from "../../api/api.js";
 
-const ForecastCard = () => {
+const CurrentWeather = () => {
     const { currentCity, units } = useWeather();
 
     const [currentWeather, setCurrentWeather] = useState(null);
@@ -52,4 +52,4 @@ const ForecastCard = () => {
         </div>
     )
 }
-export default ForecastCard
+export default CurrentWeather
