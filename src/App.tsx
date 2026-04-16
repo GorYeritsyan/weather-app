@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router";
+
 import Home from "./pages/Home.tsx";
 import RootLayout from "./layouts/RootLayout.tsx";
 import FavoriteCities from "./pages/FavoriteCities.tsx";

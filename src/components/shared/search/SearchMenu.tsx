@@ -1,10 +1,17 @@
 import { useWeather } from "../../../providers/WeatherProvider.tsx";
 import Spinner from "../../ui/Spinner.tsx";
+import type { TCity } from "../../../types/types.ts";
 
-const SearchMenu = ({ isSearching, searchedCities, onInputClear }) => {
+type SearchMenuProps = {
+    isSearching?: boolean;
+    searchedCities: TCity[];
+    onInputClear: () => void;
+}
+
+const SearchMenu = ({ isSearching, searchedCities, onInputClear }: SearchMenuProps) => {
     const { handleAddFavoriteCity } = useWeather();
 
-    function addFavoriteCity(city) {
+    function addFavoriteCity(city: TCity) {
         handleAddFavoriteCity(city);
         onInputClear();
     }

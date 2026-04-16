@@ -4,7 +4,13 @@ import ModalContent from "../ui/modal/ModalContent.tsx";
 import ModalSubmit from "../ui/modal/ModalSubmit.tsx";
 import ModalClose from "../ui/modal/ModalClose.tsx";
 
-const DeleteModalButton = ({ title, description, onDelete }) => {
+type DeleteModalButtonProps = {
+    title: string;
+    description: string;
+    onDelete: () => void;
+}
+
+const DeleteModalButton = ({ title, description, onDelete }: DeleteModalButtonProps) => {
     return (
         <Modal>
             <ModalTrigger variant="danger">

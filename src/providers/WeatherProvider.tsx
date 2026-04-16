@@ -5,7 +5,7 @@ import { weatherApi } from "../api/api.ts";
 type TWeatherContext = {
     changeUnits: (units: TUnits) => void;
     handleAddFavoriteCity: (city: TCity) => void;
-    handleRemoveFavoriteCity: (cityId: string) => void;
+    handleRemoveFavoriteCity: (cityId?: string) => void;
     currentCity: TCity | null;
     isLocationLoading: boolean,
     favoriteCities: TCity[],
@@ -29,7 +29,7 @@ const WeatherProvider = ({ children }: { children: ReactNode }) => {
     }
 
     // Remove Favorite City
-    function handleRemoveFavoriteCity(cityId: string) {
+    function handleRemoveFavoriteCity(cityId?: string) {
         setFavoriteCities(prev => prev.filter(city => city.id !== cityId));
     }
 

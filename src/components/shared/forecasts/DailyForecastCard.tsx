@@ -1,14 +1,22 @@
-import { cn } from "../../../utils/index.ts";
+import { cn } from "../../../utils";
 import WeatherIcon from "../WeatherIcon.tsx";
+import type {TWeather} from "../../../types/types.ts";
 
-const DailyForecastCard = ({ dailyForecastDetails, selectedDay, onDayChange }) => {
-    const [day, hours] = dailyForecastDetails;
+type DailyForecastCardProps = {
+    dailyForecastDetails: any;
+    selectedDay: string | null;
+    onDayChange: (day: string) => void;
+};
+
+const DailyForecastCard = ({ dailyForecastDetails, selectedDay, onDayChange }: DailyForecastCardProps) => {
+    const [day, hours]: [string, TWeather[]] = dailyForecastDetails;
+    console.log(dailyForecastDetails)
 
     const dailyTemps = hours.map(hour => Math.round(hour?.main?.temp));
     const minTemp = Math.min(...dailyTemps);
     const maxTemp = Math.max(...dailyTemps);
 
-    function getWeekDay(newDate) {
+    function getWeekDay(newDate: string | number) {
         const date = new Date(newDate).toDateString().split(" ");
         return `${date?.[0]} ${date?.[2]}`;
     }

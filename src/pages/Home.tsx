@@ -8,9 +8,9 @@ import WeatherForecast from "../components/shared/forecasts/WeatherForecast.tsx"
 
 const Home = () => {
     const { currentCity, isLocationLoading } = useWeather();
-    const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
-    function handleDayChange(day) {
+    function handleDayChange(day: string) {
         setSelectedDay(day);
     }
 

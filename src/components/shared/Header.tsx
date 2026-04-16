@@ -1,6 +1,6 @@
 import { NavLink } from "react-router";
 import Container from "./Container.tsx";
-import { cn } from "../../utils/index.ts";
+import { cn } from "../../utils";
 import ToggleUnits from "./ToggleUnits.tsx";
 
 const headerRoutes = [

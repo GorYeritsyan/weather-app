@@ -10,9 +10,9 @@ const FavoriteCity = () => {
     const { cityName, countryName } = useParams();
     const navigate = useNavigate();
 
-    const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedDay, setSelectedDay] = useState<string | null>(null);
 
-    function handleDayChange(day) {
+    function handleDayChange(day: string) {
         setSelectedDay(day);
     }
 

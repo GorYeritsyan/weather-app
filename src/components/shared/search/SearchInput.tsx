@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useWeather } from "../../../providers/WeatherProvider.tsx";
 import SearchMenu from "./SearchMenu.tsx";
 
+import type { TCity } from "../../../types/types.ts";
 import { weatherApi } from "../../../api/api.ts";
 
 const SearchInput = () => {
@@ -10,10 +11,10 @@ const SearchInput = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    const inputRef = useRef(null);
-    const timeoutRef = useRef(null);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const [searchedCities, setSearchedCities] = useState([]);
+    const [searchedCities, setSearchedCities] = useState<TCity[]>([]);
 
     // Don't show same city in the search result if already city added to favorites
     const filteredCities = searchedCities?.length > 0 ? (
@@ -21,7 +22,7 @@ const SearchInput = () => {
     ) : [];
 
     // Fetch cities
-    function searchCities(cityName) {
+    function searchCities(cityName: string) {
         setIsSearching(true);
         setIsOpen(true);
 
@@ -44,13 +45,15 @@ const SearchInput = () => {
         }
 
         timeoutRef.current = setTimeout(() => {
-            searchCities(inputRef.current.value);
+            searchCities(inputRef?.current?.value as string);
         }, 1000);
     }
 
     // Clear search input
     function handleClearInput() {
-        inputRef.current.value = "";
+        if (inputRef.current) {
+            inputRef.current.value = "";
+        }
     }
 
     return (

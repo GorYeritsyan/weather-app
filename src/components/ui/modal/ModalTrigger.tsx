@@ -1,7 +1,15 @@
+import type { ReactNode } from "react";
+
 import { useModal } from "./Modal.tsx";
 import Button from "../Button.tsx";
+import type { TButtonVariant } from "../../../types/types.ts";
 
-const ModalTrigger = ({ children, variant }) => {
+type ModalTriggerProps = {
+    children: ReactNode;
+    variant: TButtonVariant;
+}
+
+const ModalTrigger = ({ children, variant }: ModalTriggerProps) => {
     const { triggerModal } = useModal();
 
     return (

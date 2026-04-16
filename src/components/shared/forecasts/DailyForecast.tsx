@@ -1,6 +1,13 @@
+import type { TWeather } from "../../../types/types.ts";
 import DailyForecastCard from "./DailyForecastCard.tsx";
 
-const DailyForecast = ({ forecast, selectedDay, onDayChange }) => {
+type DailyForecastProps = {
+    forecast: { [key: string]: TWeather[] };
+    selectedDay: string | null;
+    onDayChange: (selectedDay: string) => void;
+};
+
+const DailyForecast = ({ forecast, selectedDay, onDayChange }: DailyForecastProps) => {
     return (
         <div className="flex flex-col gap-2">
             <h3 className="font-semibold text-xl">Daily Forecast</h3>

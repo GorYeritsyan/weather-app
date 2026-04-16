@@ -1,7 +1,13 @@
 import HourlyForecastCard from "./HourlyForecastCard.tsx";
+import type { TWeather } from "../../../types/types.ts";
 
-const HourlyForecast = ({ selectedDay, forecast }) => {
-    const hourlyForecast = forecast?.[selectedDay];
+type HourlyForecastProps = {
+    selectedDay: string | null;
+    forecast: { [key: string]: TWeather[] };
+};
+
+const HourlyForecast = ({ selectedDay, forecast }: HourlyForecastProps) => {
+    const hourlyForecast: TWeather[] = forecast?.[selectedDay];
 
     return (
         <div className="flex flex-col gap-2">

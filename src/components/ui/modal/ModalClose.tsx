@@ -1,7 +1,16 @@
+import type { ReactNode } from "react";
+
 import { useModal } from "./Modal.tsx";
 import Button from "../Button.tsx";
 
-const ModalClose = ({ children, variant }) => {
+import type { TButtonVariant } from "../../../types/types.ts";
+
+type ModalCloseProps = {
+    children: ReactNode;
+    variant: TButtonVariant;
+}
+
+const ModalClose = ({ children, variant }: ModalCloseProps) => {
     const { closeModal } = useModal();
 
     return (

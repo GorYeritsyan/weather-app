@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { cn } from "../../utils/index.ts";
+import { cn } from "../../utils";
 
 const Container = ({ children, className }: {
     children?: ReactNode;

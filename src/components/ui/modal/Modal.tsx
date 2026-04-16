@@ -1,8 +1,14 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, type ReactNode, useContext, useState } from "react";
 
-const ModalContext = createContext(null);
+type TModalContext = {
+    isModalOpen: boolean;
+    triggerModal: () => void;
+    closeModal: () => void;
+}
 
-const Modal = ({ children }) => {
+const ModalContext = createContext<TModalContext | null>(null);
+
+const Modal = ({ children }: { children: ReactNode }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     function triggerModal() {

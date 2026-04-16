@@ -2,14 +2,15 @@ import { useNavigate } from "react-router";
 import { useWeather } from "../../providers/WeatherProvider.tsx";
 
 import DeleteModalButton from "./DeleteModalButton.tsx";
-import { cn } from "../../utils/index.ts";
 
+import { cn } from "../../utils";
+import type { TCity } from "../../types/types.ts";
 
 const Cities = () => {
     const navigate = useNavigate();
     const { handleRemoveFavoriteCity, favoriteCities } = useWeather();
 
-    function navigateToFavoriteCity(city) {
+    function navigateToFavoriteCity(city: TCity) {
         navigate(`/favorites/${city.country}/${city.name}`);
     }
 

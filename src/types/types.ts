@@ -47,6 +47,7 @@ export type TWeather = {
         all: number;
     };
     dt: number;
+    dt_txt?: string;
     sys: {
         type: number;
         id: number;
@@ -65,4 +66,10 @@ export type TForecast = {
     message: number;
     cnt: number;
     list: TWeather[];
-}
+};
+
+export type TButtonVariant = "danger" | "ghost";
+
+export type TGroupedForecast = {
+    [key: string]: TWeather[];
+};

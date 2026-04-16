@@ -5,20 +5,30 @@ import DailyForecast from "./DailyForecast.tsx";
 import HourlyForecast from "./HourlyForecast.tsx";
 import WeatherForecastSkeleton from "../skeletons/WeatherForecastSkeleton.tsx";
 
+import type {TGroupedForecast, TWeather} from "../../../types/types.ts";
 import { weatherApi } from "../../../api/api.ts";
 
-const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }) => {
+type WeatherForecastProps = {
+    cityName?: string;
+    countryName?: string;
+    selectedDay: string | null;
+    onDayChange: (day: string) => void;
+}
+
+const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }: WeatherForecastProps) => {
     const { units } = useWeather();
 
-    const [forecast, setForecast] = useState([]);
+    const [forecast, setForecast] = useState<TWeather[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     // Group Forecast data by day
-    const groupedForecast = forecast?.reduce((acc, item) => {
+    const groupedForecast: TGroupedForecast = forecast?.reduce((acc: TGroupedForecast, item) => {
         const day = item?.dt_txt?.split(" ")[0];
 
-        if (!acc[day]) acc[day] = [];
-        acc[day].push(item);
+        if (typeof day !== "undefined") {
+            if (!acc[day]) acc[day] = [];
+            acc[day].push(item);
+        }
 
         return acc;
     }, {});
@@ -66,7 +76,7 @@ const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }) =>
             <DailyForecast forecast={groupedForecast} selectedDay={selectedDay} onDayChange={onDayChange} />
 
             {/* 3-Hour forecast */}
-            <HourlyForecast selectedDay={selectedDay} forecast={groupedForecast} />
+            <HourlyForecast forecast={groupedForecast} selectedDay={selectedDay} />
         </div>
     );
 }

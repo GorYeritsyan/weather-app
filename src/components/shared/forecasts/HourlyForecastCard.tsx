@@ -1,26 +1,29 @@
 import WeatherIcon from "../WeatherIcon.tsx";
+import type { TWeather } from "../../../types/types.ts";
 
-const HourlyForecastCard = ({ forecastDetails }) => {
+const HourlyForecastCard = ({ forecastDetails }: { forecastDetails: TWeather }) => {
 
-    function getDateString(date) {
-        let hour = new Date(date).getHours();
-        let minutes = new Date(date).getMinutes();
-        let amPm = "AM";
+    function getDateString(date: string | undefined) {
+        if (typeof date !== "undefined") {
+            let hour = new Date(date).getHours();
+            let minutes = new Date(date).getMinutes();
+            let amPm = "AM";
 
-        if (hour >= 12) {
-            amPm = "PM";
-            hour -= 12;
+            if (hour >= 12) {
+                amPm = "PM";
+                hour -= 12;
+            }
+
+            if (hour === 0) {
+                hour = "12";
+            }
+
+            if (minutes === 0) {
+                minutes = "00";
+            }
+
+            return `${hour}:${minutes} ${amPm}`;
         }
-
-        if (hour === 0) {
-            hour = "12";
-        }
-
-        if (minutes === 0) {
-            minutes = "00";
-        }
-
-        return `${hour}:${minutes} ${amPm}`;
     }
 
     return (

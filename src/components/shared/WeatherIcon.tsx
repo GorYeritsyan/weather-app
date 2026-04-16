@@ -1,6 +1,11 @@
 import { imageBaseUrl } from "../../api/api.ts";
 
-const WeatherIcon = ({ icon, className }) => {
+type WeatherIconProps = {
+    icon?: string;
+    className?: string;
+}
+
+const WeatherIcon = ({ icon, className }: WeatherIconProps) => {
     return (
         <img
             className={className}
@@ -9,4 +14,4 @@ const WeatherIcon = ({ icon, className }) => {
         />
     )
 }
-export default WeatherIcon
+export default WeatherIcon;

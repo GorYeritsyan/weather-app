@@ -1,7 +1,8 @@
 import { useWeather } from "../../providers/WeatherProvider.tsx";
-import { cn } from "../../utils/index.ts";
+import { cn } from "../../utils";
+import type { TUnits } from "../../types/types.ts";
 
-const unitsList = [
+const unitsList: { value: TUnits, label: string }[] = [
     {
         value: "metric",
         label: "℃"

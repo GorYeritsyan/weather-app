@@ -1,10 +1,18 @@
-import { useModal } from "./Modal.tsx";
+import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
-const ModalContent = ({ children, title, description }) => {
+import { useModal } from "./Modal.tsx";
+
+type ModalContentProps = {
+    children: ReactNode;
+    title: string;
+    description: string;
+}
+
+const ModalContent = ({ children, title, description }: ModalContentProps) => {
     const { isModalOpen, closeModal } = useModal();
 
-    function handleCloseModal(e) {
+    function handleCloseModal(e: any) {
         if (e.target.id === "modal") {
             closeModal();
         }
