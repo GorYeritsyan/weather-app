@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useWeather } from "../../providers/WeatherProvider.jsx";
+import { useWeather } from "../../../providers/WeatherProvider.jsx";
 
 import DailyForecast from "./DailyForecast.jsx";
 import HourlyForecast from "./HourlyForecast.jsx";
-import WeatherForecastSkeleton from "./skeletons/WeatherForecastSkeleton.jsx";
+import WeatherForecastSkeleton from "../skeletons/WeatherForecastSkeleton.jsx";
 
-import { weatherApi } from "../../api/api.js";
+import { weatherApi } from "../../../api/api.js";
 
 const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }) => {
     const { units } = useWeather();
@@ -26,9 +26,8 @@ const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }) =>
     // Fetch 5 day / 3-hour forecast data
     useEffect(() => {
         if (cityName && countryName) {
-            const query = `${cityName},${countryName}`;
-
             setIsLoading(true);
+            const query = `${cityName},${countryName}`;
 
             weatherApi.fetchForecast(query, units)
                 .then(data => {
@@ -64,10 +63,10 @@ const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }) =>
     return (
         <div className="flex flex-col gap-5">
             {/* 5-Day Forecast */}
-            <DailyForecast dailyForecast={groupedForecast} selectedDay={selectedDay} onDayChange={onDayChange} />
+            <DailyForecast forecast={groupedForecast} selectedDay={selectedDay} onDayChange={onDayChange} />
 
             {/* 3-Hour forecast */}
-            <HourlyForecast selectedDay={selectedDay} hourlyForecast={groupedForecast} />
+            <HourlyForecast selectedDay={selectedDay} forecast={groupedForecast} />
         </div>
     );
 }

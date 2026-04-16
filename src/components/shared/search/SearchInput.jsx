@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 
-import { useWeather } from "../../providers/WeatherProvider.jsx";
+import { useWeather } from "../../../providers/WeatherProvider.jsx";
 import SearchMenu from "./SearchMenu.jsx";
 
-import { weatherApi } from "../../api/api.js";
+import { weatherApi } from "../../../api/api.js";
 
 const SearchInput = () => {
     const { favoriteCities } = useWeather();
@@ -48,6 +48,11 @@ const SearchInput = () => {
         }, 1000);
     }
 
+    // Clear search input
+    function handleClearInput() {
+        inputRef.current.value = "";
+    }
+
     return (
         <div onClick={handleToggleSearchMenu} className="relative w-fit">
             <input
@@ -58,7 +63,7 @@ const SearchInput = () => {
             />
 
             {inputRef.current?.value && isOpen && (
-                <SearchMenu isSearching={isSearching} searchedCities={filteredCities} />
+                <SearchMenu isSearching={isSearching} searchedCities={filteredCities} onInputClear={handleClearInput} />
             )}
         </div>
     )

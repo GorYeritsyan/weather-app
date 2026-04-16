@@ -4,7 +4,7 @@ import { useWeather } from "../providers/WeatherProvider.jsx";
 import Container from "../components/shared/Container.jsx";
 import CurrentWeather from "../components/shared/CurrentWeather.jsx";
 import Spinner from "../components/ui/Spinner.jsx";
-import WeatherForecast from "../components/shared/WeatherForecast.jsx";
+import WeatherForecast from "../components/shared/forecasts/WeatherForecast.jsx";
 
 const Home = () => {
     const { currentCity, isLocationLoading } = useWeather();

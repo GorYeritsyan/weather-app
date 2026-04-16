@@ -1,4 +1,4 @@
-import WeatherIcon from "./WeatherIcon.jsx";
+import WeatherIcon from "../WeatherIcon.jsx";
 
 const HourlyForecastCard = ({ forecastDetails }) => {
 

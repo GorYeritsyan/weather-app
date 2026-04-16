@@ -1,5 +1,5 @@
-import { cn } from "../../utils/index.js";
-import WeatherIcon from "./WeatherIcon.jsx";
+import { cn } from "../../../utils/index.js";
+import WeatherIcon from "../WeatherIcon.jsx";
 
 const DailyForecastCard = ({ dailyForecastDetails, selectedDay, onDayChange }) => {
     const [day, hours] = dailyForecastDetails;
@@ -30,7 +30,7 @@ const DailyForecastCard = ({ dailyForecastDetails, selectedDay, onDayChange }) =
                 </span>
 
                 <span className="font-semibold">
-                    {minTemp}°-{maxTemp}°
+                    {minTemp}° - {maxTemp}°
                 </span>
             </div>
 

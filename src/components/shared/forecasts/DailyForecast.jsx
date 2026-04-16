@@ -1,12 +1,12 @@
 import DailyForecastCard from "./DailyForecastCard.jsx";
 
-const DailyForecast = ({ dailyForecast, selectedDay, onDayChange }) => {
+const DailyForecast = ({ forecast, selectedDay, onDayChange }) => {
     return (
         <div className="flex flex-col gap-2">
             <h3 className="font-semibold text-xl">Daily Forecast</h3>
 
             <div className="flex gap-2 w-full overflow-x-auto">
-                {Object.entries(dailyForecast)?.map((dailyForecastItem, index) => (
+                {Object.entries(forecast)?.map((dailyForecastItem, index) => (
                     <DailyForecastCard
                         key={index}
                         dailyForecastDetails={dailyForecastItem}

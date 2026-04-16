@@ -14,9 +14,9 @@ const CurrentWeather = () => {
 
     useEffect(() => {
         if (currentCity) {
+            setIsLoading(true);
             const query = `${currentCity?.name},${currentCity?.country}`;
 
-            setIsLoading(true);
             weatherApi.fetchWeather(query, units)
                 .then(res => {
                     setCurrentWeather(res);

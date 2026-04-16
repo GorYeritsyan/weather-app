@@ -1,8 +1,13 @@
-import { useWeather } from "../../providers/WeatherProvider.jsx";
-import Spinner from "../ui/Spinner.jsx";
+import { useWeather } from "../../../providers/WeatherProvider.jsx";
+import Spinner from "../../ui/Spinner.jsx";
 
-const SearchMenu = ({ isSearching, searchedCities }) => {
+const SearchMenu = ({ isSearching, searchedCities, onInputClear }) => {
     const { handleAddFavoriteCity } = useWeather();
+
+    function addFavoriteCity(city) {
+        handleAddFavoriteCity(city);
+        onInputClear();
+    }
 
     return (
         <div className="absolute top-full mt-1 bg-white rounded-xl border-gray-200 shadow-md shadow-gray-200 w-full h-fit">
@@ -25,10 +30,10 @@ const SearchMenu = ({ isSearching, searchedCities }) => {
                             </div>
 
                             <button
-                                onClick={() => handleAddFavoriteCity(city)}
+                                onClick={() => addFavoriteCity(city)}
                                 className="text-blue-500 cursor-pointer hover:text-blue-600 px-3 py-1 active:bg-blue-200 hover:bg-blue-100 rounded-full"
                             >
-                                Add to favorite
+                                Add to favorites
                             </button>
                         </div>
                     ))

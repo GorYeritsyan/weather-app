@@ -1,5 +1,5 @@
 import Container from "../components/shared/Container.jsx";
-import SearchInput from "../components/shared/SearchInput.jsx";
+import SearchInput from "../components/shared/search/SearchInput.jsx";
 import Cities from "../components/shared/Cities.jsx";
 
 const FavoriteCities = () => {

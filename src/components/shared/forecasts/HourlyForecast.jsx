@@ -1,0 +1,22 @@
+import HourlyForecastCard from "./HourlyForecastCard.jsx";
+
+const HourlyForecast = ({ selectedDay, forecast }) => {
+    const hourlyForecast = Object.entries(forecast)
+        .find(([day]) => day === selectedDay)?.[1];
+
+    return (
+        <div className="flex flex-col gap-2">
+            <h3 className="font-semibold text-xl">Hourly Forecast</h3>
+
+            <div className="flex gap-2 flex-wrap">
+                {hourlyForecast.map((forecastItem) => (
+                    <HourlyForecastCard
+                        key={forecastItem?.dt}
+                        forecastDetails={forecastItem}
+                    />
+                ))}
+            </div>
+        </div>
+    )
+}
+export default HourlyForecast
