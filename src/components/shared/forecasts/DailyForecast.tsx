@@ -1,8 +1,8 @@
-import type { TWeather } from "../../../types/types.ts";
+import type { TGroupedForecast } from "../../../types/types.ts";
 import DailyForecastCard from "./DailyForecastCard";
 
 type DailyForecastProps = {
-    forecast: { [key: string]: TWeather[] };
+    forecast: TGroupedForecast;
     selectedDay: string | null;
     onDayChange: (selectedDay: string) => void;
 };

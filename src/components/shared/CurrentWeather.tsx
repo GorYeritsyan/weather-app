@@ -11,7 +11,7 @@ const CurrentWeather = () => {
     const { currentCity, units } = useWeather();
 
     const [currentWeather, setCurrentWeather] = useState<TWeather | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
         if (currentCity) {
@@ -22,7 +22,7 @@ const CurrentWeather = () => {
                 .then(res => {
                     setCurrentWeather(res);
                     setIsLoading(false);
-                })
+                });
         }
     }, [currentCity, units]);
 

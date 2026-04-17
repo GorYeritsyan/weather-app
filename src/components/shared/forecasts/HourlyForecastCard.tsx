@@ -7,22 +7,12 @@ const HourlyForecastCard = ({ forecastDetails }: { forecastDetails: TWeather }) 
         if (typeof date !== "undefined") {
             let hour = new Date(date).getHours();
             let minutes = new Date(date).getMinutes();
-            let amPm = "AM";
+            let amPm = hour >= 12 ? "PM" : "AM";
 
-            if (hour >= 12) {
-                amPm = "PM";
-                hour -= 12;
-            }
+            // Hour can be only 12 AM - 12 PM
+            hour = hour % 12 || 12;
 
-            if (hour === 0) {
-                hour = "12";
-            }
-
-            if (minutes === 0) {
-                minutes = "00";
-            }
-
-            return `${hour}:${minutes} ${amPm}`;
+            return `${hour}:${String(minutes).padStart(2, "0")} ${amPm}`;
         }
     }
 

@@ -19,7 +19,7 @@ const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }: We
     const { units } = useWeather();
 
     const [forecast, setForecast] = useState<TWeather[]>([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // Group Forecast data by day
     const groupedForecast: TGroupedForecast = forecast?.reduce((acc: TGroupedForecast, item) => {
@@ -58,26 +58,24 @@ const WeatherForecast = ({ cityName, countryName, selectedDay, onDayChange }: We
         }
     }, [forecast]);
 
-    // Show Weather forecast skeleton when loading data
-    if (isLoading) return (
-        <WeatherForecastSkeleton />
-    );
-
-    // Show Error Message if there is no data
-    if (!forecast) {
-        return (
-            <p className="text-lg font-semibold">Forecast data is not available for this location.</p>
-        )
-    }
-
     return (
-        <div className="flex flex-col gap-5">
-            {/* 5-Day Forecast */}
-            <DailyForecast forecast={groupedForecast} selectedDay={selectedDay} onDayChange={onDayChange} />
+        <>
+            {isLoading ? (
+                // Show Weather forecast skeleton when loading data
+                <WeatherForecastSkeleton />
+            ) : !forecast ? (
+                // Show Error Message if there is no data
+                <p className="text-lg font-semibold">Forecast data is not available for this location.</p>
+            ) : (
+                <div className="flex flex-col gap-5">
+                    {/* 5-Day Forecast */}
+                    <DailyForecast forecast={groupedForecast} selectedDay={selectedDay} onDayChange={onDayChange} />
 
-            {/* 3-Hour forecast */}
-            <HourlyForecast forecast={groupedForecast} selectedDay={selectedDay} />
-        </div>
+                    {/* 3-Hour forecast */}
+                    <HourlyForecast forecast={groupedForecast} selectedDay={selectedDay} />
+                </div>
+            )}
+        </>
     );
 }
 

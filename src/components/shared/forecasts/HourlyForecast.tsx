@@ -1,9 +1,9 @@
 import HourlyForecastCard from "./HourlyForecastCard";
-import type { TWeather } from "../../../types/types.ts";
+import type { TGroupedForecast } from "../../../types/types.ts";
 
 type HourlyForecastProps = {
     selectedDay: string | null;
-    forecast: { [key: string]: TWeather[] };
+    forecast: TGroupedForecast;
 };
 
 const HourlyForecast = ({ selectedDay, forecast }: HourlyForecastProps) => {
