@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode, type MouseEvent } from "react";
 import { createPortal } from "react-dom";
 
 import { useModal } from "./Modal";
@@ -12,8 +12,8 @@ type ModalContentProps = {
 const ModalContent = ({ children, title, description }: ModalContentProps) => {
     const { isModalOpen, closeModal } = useModal();
 
-    function handleCloseModal(e: any) {
-        if (e.target.id === "modal") {
+    function handleCloseModal(e: MouseEvent<HTMLDivElement>) {
+        if ((e.target as HTMLDivElement).id === "modal") {
             closeModal();
         }
     }
