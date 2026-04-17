@@ -9,7 +9,7 @@ type TModalContext = {
 const ModalContext = createContext<TModalContext | null>(null);
 
 const Modal = ({ children }: { children: ReactNode }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     function triggerModal() {
         setIsModalOpen(true);

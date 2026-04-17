@@ -3,8 +3,8 @@ import { useWeather } from "../../providers/WeatherProvider";
 
 import DeleteModalButton from "./DeleteModalButton";
 
-import { cn } from "../../utils";
 import type { TCity } from "../../types/types.ts";
+import { cn } from "../../utils";
 
 const Cities = () => {
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Cities = () => {
 
     return (
        <div className="flex flex-col gap-4">
-           {favoriteCities?.length > 0 ? favoriteCities?.map(city => (
+           {favoriteCities?.length > 0 ? favoriteCities?.map((city: TCity) => (
                <div key={city.lon} className="flex items-center gap-2">
                    <div
                        onClick={() => navigateToFavoriteCity(city)}

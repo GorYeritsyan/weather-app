@@ -8,8 +8,8 @@ import { weatherApi } from "../../../api/api.ts";
 
 const SearchInput = () => {
     const { favoriteCities } = useWeather();
-    const [isSearching, setIsSearching] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isSearching, setIsSearching] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const inputRef = useRef<HTMLInputElement>(null);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -17,7 +17,7 @@ const SearchInput = () => {
     const [searchedCities, setSearchedCities] = useState<TCity[]>([]);
 
     // Don't show same city in the search result if already city added to favorites
-    const filteredCities = searchedCities?.length > 0 ? (
+    const filteredCities: TCity[] = searchedCities?.length > 0 ? (
         searchedCities?.filter(city => !favoriteCities?.map(elem => elem?.lon).includes(city?.lon))
     ) : [];
 

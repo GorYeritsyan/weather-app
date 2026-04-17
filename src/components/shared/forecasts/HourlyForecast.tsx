@@ -1,5 +1,5 @@
 import HourlyForecastCard from "./HourlyForecastCard";
-import type { TGroupedForecast } from "../../../types/types.ts";
+import type { TGroupedForecast, TWeather } from "../../../types/types.ts";
 
 type HourlyForecastProps = {
     selectedDay: string | null;
