@@ -1,9 +1,14 @@
 import { NavLink } from "react-router";
-import Container from "./Container.tsx";
+import Container from "./Container";
 import { cn } from "../../utils";
-import ToggleUnits from "./ToggleUnits.tsx";
+import ToggleUnits from "./ToggleUnits";
 
-const headerRoutes = [
+type THeaderRoute = {
+    path: string;
+    title: string;
+}
+
+const headerRoutes: THeaderRoute[] = [
     {
         path: "/",
         title: "Home"

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
-import { useWeather } from "../../../providers/WeatherProvider.tsx";
-import SearchMenu from "./SearchMenu.tsx";
+import { useWeather } from "../../../providers/WeatherProvider";
+import SearchMenu from "./SearchMenu";
 
 import type { TCity } from "../../../types/types.ts";
 import { weatherApi } from "../../../api/api.ts";

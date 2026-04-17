@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useWeather } from "../../../providers/WeatherProvider.tsx";
+import { useWeather } from "../../../providers/WeatherProvider";
 
-import DailyForecast from "./DailyForecast.tsx";
-import HourlyForecast from "./HourlyForecast.tsx";
-import WeatherForecastSkeleton from "../skeletons/WeatherForecastSkeleton.tsx";
+import DailyForecast from "./DailyForecast";
+import HourlyForecast from "./HourlyForecast";
+import WeatherForecastSkeleton from "../skeletons/WeatherForecastSkeleton"
 
-import type {TGroupedForecast, TWeather} from "../../../types/types.ts";
+import type { TGroupedForecast, TWeather } from "../../../types/types.ts";
 import { weatherApi } from "../../../api/api.ts";
 
 type WeatherForecastProps = {

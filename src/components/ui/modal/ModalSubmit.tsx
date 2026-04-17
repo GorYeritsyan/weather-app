@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { useModal } from "./Modal.tsx";
-import Button from "../Button.tsx";
+import { useModal } from "./Modal";
+import Button from "../Button";
 import type { TButtonVariant } from "../../../types/types.ts";
 
 type ModalSubmit = {

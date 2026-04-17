@@ -1,4 +1,4 @@
-import Skeleton from "../../ui/Skeleton.tsx";
+import Skeleton from "../../ui/Skeleton";
 
 const CurrentWeatherSkeleton = () => {
     return (

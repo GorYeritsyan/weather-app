@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
-import { useModal } from "./Modal.tsx";
+import { useModal } from "./Modal";
 
 type ModalContentProps = {
     children: ReactNode;

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-import WeatherForecast from "../components/shared/forecasts/WeatherForecast.tsx";
-import Container from "../components/shared/Container.tsx";
-import Button from "../components/ui/Button.tsx";
+import WeatherForecast from "../components/shared/forecasts/WeatherForecast";
+import Container from "../components/shared/Container";
+import Button from "../components/ui/Button";
 
 const FavoriteCity = () => {
     const { cityName, countryName } = useParams();

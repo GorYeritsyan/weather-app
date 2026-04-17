@@ -1,5 +1,5 @@
-import { useWeather } from "../../../providers/WeatherProvider.tsx";
-import Spinner from "../../ui/Spinner.tsx";
+import { useWeather } from "../../../providers/WeatherProvider";
+import Spinner from "../../ui/Spinner";
 import type { TCity } from "../../../types/types.ts";
 
 type SearchMenuProps = {

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useWeather } from "../providers/WeatherProvider.tsx";
+import { useWeather } from "../providers/WeatherProvider";
 
-import Container from "../components/shared/Container.tsx";
-import CurrentWeather from "../components/shared/CurrentWeather.tsx";
-import Spinner from "../components/ui/Spinner.tsx";
-import WeatherForecast from "../components/shared/forecasts/WeatherForecast.tsx";
+import Container from "../components/shared/Container";
+import CurrentWeather from "../components/shared/CurrentWeather";
+import Spinner from "../components/ui/Spinner";
+import WeatherForecast from "../components/shared/forecasts/WeatherForecast";
 
 const Home = () => {
     const { currentCity, isLocationLoading } = useWeather();

@@ -1,6 +1,6 @@
-import Container from "../components/shared/Container.tsx";
-import SearchInput from "../components/shared/search/SearchInput.tsx";
-import Cities from "../components/shared/Cities.tsx";
+import Container from "../components/shared/Container";
+import SearchInput from "../components/shared/search/SearchInput";
+import Cities from "../components/shared/Cities";
 
 const FavoriteCities = () => {
     return (

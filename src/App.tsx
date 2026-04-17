@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router";
 
-import Home from "./pages/Home.tsx";
-import RootLayout from "./layouts/RootLayout.tsx";
-import FavoriteCities from "./pages/FavoriteCities.tsx";
-import FavoriteCity from "./pages/FavoriteCity.tsx";
+import Home from "./pages/Home";
+import RootLayout from "./layouts/RootLayout";
+import FavoriteCities from "./pages/FavoriteCities";
+import FavoriteCity from "./pages/FavoriteCity";
 
 const App = () => {
     return (

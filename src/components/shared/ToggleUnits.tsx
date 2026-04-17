@@ -1,4 +1,4 @@
-import { useWeather } from "../../providers/WeatherProvider.tsx";
+import { useWeather } from "../../providers/WeatherProvider";
 import { cn } from "../../utils";
 import type { TUnits } from "../../types/types.ts";
 

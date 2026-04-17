@@ -1,4 +1,4 @@
-import WeatherIcon from "../WeatherIcon.tsx";
+import WeatherIcon from "../WeatherIcon";
 import type { TWeather } from "../../../types/types.ts";
 
 const HourlyForecastCard = ({ forecastDetails }: { forecastDetails: TWeather }) => {

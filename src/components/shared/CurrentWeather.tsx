@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useWeather } from "../../providers/WeatherProvider.tsx";
+import { useWeather } from "../../providers/WeatherProvider";
 
-import WeatherIcon from "./WeatherIcon.tsx";
-import CurrentWeatherSkeleton from "./skeletons/CurrentWeatherSkeleton.tsx";
+import WeatherIcon from "./WeatherIcon";
+import CurrentWeatherSkeleton from "./skeletons/CurrentWeatherSkeleton";
 
 import type { TWeather } from "../../types/types.ts";
 import { weatherApi } from "../../api/api.ts";

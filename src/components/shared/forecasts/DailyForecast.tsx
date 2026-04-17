@@ -1,5 +1,5 @@
 import type { TWeather } from "../../../types/types.ts";
-import DailyForecastCard from "./DailyForecastCard.tsx";
+import DailyForecastCard from "./DailyForecastCard";
 
 type DailyForecastProps = {
     forecast: { [key: string]: TWeather[] };

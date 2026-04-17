@@ -1,8 +1,8 @@
-import Modal from "../ui/modal/Modal.tsx";
-import ModalTrigger from "../ui/modal/ModalTrigger.tsx";
-import ModalContent from "../ui/modal/ModalContent.tsx";
-import ModalSubmit from "../ui/modal/ModalSubmit.tsx";
-import ModalClose from "../ui/modal/ModalClose.tsx";
+import Modal from "../ui/modal/Modal";
+import ModalTrigger from "../ui/modal/ModalTrigger";
+import ModalContent from "../ui/modal/ModalContent";
+import ModalSubmit from "../ui/modal/ModalSubmit";
+import ModalClose from "../ui/modal/ModalClose";
 
 type DeleteModalButtonProps = {
     title: string;

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
-import { useWeather } from "../../providers/WeatherProvider.tsx";
+import { useWeather } from "../../providers/WeatherProvider";
 
-import DeleteModalButton from "./DeleteModalButton.tsx";
+import DeleteModalButton from "./DeleteModalButton";
 
 import { cn } from "../../utils";
 import type { TCity } from "../../types/types.ts";

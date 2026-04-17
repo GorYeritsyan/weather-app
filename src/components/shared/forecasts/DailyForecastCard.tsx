@@ -1,5 +1,5 @@
 import { cn } from "../../../utils";
-import WeatherIcon from "../WeatherIcon.tsx";
+import WeatherIcon from "../WeatherIcon";
 import type {TWeather} from "../../../types/types.ts";
 
 type DailyForecastCardProps = {
