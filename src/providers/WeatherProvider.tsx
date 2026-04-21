@@ -41,7 +41,6 @@ const WeatherProvider = ({ children }: { children: ReactNode }) => {
     // Get Location and fetch current city details to later fetch current weather and forecast using city name
     function handleLocationCallback(pos: GeolocationPosition) {
         const crd = pos.coords;
-        console.log(pos);
 
         weatherApi.fetchReverseGeolocation({ lat: crd?.latitude, lon: crd?.longitude })
             .then(res => {
